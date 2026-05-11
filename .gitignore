@@ -1,0 +1,55 @@
+# ── Dependencies ─────────────────────────────────────────────────────────────
+node_modules/
+
+# ── Build outputs (regenerable) ───────────────────────────────────────────────
+dist/
+dist-ssr/
+
+# ── Generated assets (regenerable) ───────────────────────────────────────────
+# Screenshots: npm run dev in V1-Viewable → Playwright → node make-pptx.mjs
+UI_Design_References/V1-Viewable/screenshots/
+
+# Presentations: node UI_Design_References/V1-Viewable/make-pptx.mjs
+*.pptx
+*.ppt
+
+# ── Vite internals ───────────────────────────────────────────────────────────
+.vite-temp/
+*.local
+
+# ── Godot cache & export ─────────────────────────────────────────────────────
+prototype-01-foundation/.godot/
+prototype-01-foundation/export_credentials.cfg
+*.import
+*.translation
+
+# ── Playwright MCP temp ───────────────────────────────────────────────────────
+.playwright-mcp/
+
+# ── Claude local config ───────────────────────────────────────────────────────
+.claude/settings.local.json
+
+# ── Environment / secrets ─────────────────────────────────────────────────────
+.env
+.env.local
+.env.*.local
+
+# ── OS artifacts ─────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── Editor ───────────────────────────────────────────────────────────────────
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.suo
+*.sw?
+
+# ── Logs ─────────────────────────────────────────────────────────────────────
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*

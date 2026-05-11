@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CafeDND / Tavern Table — Development Roadmap</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Inter:wght@300;400;500;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="roadmap.css">
+</head>
+<body>
+
+<!-- ─── STICKY HEADER ──────────────────────────────────────────────── -->
+<div id="global-header">
+  <div class="header-inner">
+    <span class="header-brand" onclick="goHome()">TAVERN TABLE</span>
+    <div class="header-right">
+      <span id="back-btn" onclick="goHome()">
+        ← <span id="phase-crumb" class="phase-title-crumb"></span>
+      </span>
+      <button class="theme-btn" id="theme-btn" onclick="toggleTheme()" title="Toggle theme"></button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     MAIN VIEW
+══════════════════════════════════════════════════════════════════ -->
+<div id="view-main" class="view active">
+
+  <!-- hero -->
+  <div class="main-hero">
+    <p class="hero-eyebrow">Project CafeDND</p>
+    <h1 class="hero-title">TAVERN TABLE</h1>
+    <p class="hero-subtitle">Two-Track Development Roadmap · Click any phase to explore</p>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-val">2</span><span class="stat-lbl">Tracks</span></div>
+      <div class="stat"><span class="stat-val">8+8</span><span class="stat-lbl">Phases</span></div>
+      <div class="stat"><span class="stat-val">~6 mo</span><span class="stat-lbl">Research</span></div>
+      <div class="stat"><span class="stat-val">~19 mo</span><span class="stat-lbl">Production</span></div>
+    </div>
+  </div>
+
+  <!-- legend -->
+  <div class="legend-bar" id="legend"></div>
+
+  <!-- ── RESEARCH TRACK ──────────────────────────────────────────── -->
+  <div class="track-section">
+    <div class="track-header">
+      <span class="track-badge research">Track 1 · Closed</span>
+      <div class="track-info">
+        <div class="track-name">Research Version</div>
+        <div class="track-desc">Browser + Tauri desktop · Internal team &amp; invited playtesters only</div>
+      </div>
+      <div class="track-stack">
+        Three.js · Vite · TypeScript<br>
+        Tauri 2.0 · Rust · Rapier.js<br>
+        Socket.io · Supabase
+      </div>
+    </div>
+    <div class="timeline-wrap spine-research" id="research-timeline"></div>
+  </div>
+
+  <!-- ── GATE ────────────────────────────────────────────────────── -->
+  <div class="gate-section">
+    <div class="gate-block">
+      <span class="gate-icon">🔐</span>
+      <div class="gate-label">Feedback Gate</div>
+      <h2 class="gate-title">Go / No-Go Decision</h2>
+      <p class="gate-desc">
+        After Phase R7 closed playtesting, a formal decision is made before any Godot investment begins.
+        The Production Track is only unlocked when research data confirms the CafeDND concept resonates
+        with real D&D groups.
+      </p>
+      <div class="gate-threshold">
+        <span class="gate-check">✓</span>
+        Threshold: 70%+ of playtesting groups prefer CafeDND over their current VTT
+      </div>
+    </div>
+  </div>
+
+  <!-- ── GODOT PRODUCTION TRACK ──────────────────────────────────── -->
+  <div class="track-section locked" id="godot-track-section">
+    <div class="track-header">
+      <span class="track-badge godot">Track 2 · Public</span>
+      <div class="track-info">
+        <div class="track-name">Production Version</div>
+        <div class="track-desc">Godot 4.x · Commercial release on Steam &amp; itch.io · Unlocked post-gate</div>
+      </div>
+      <div class="track-stack">
+        Godot 4.4+ · GDScript / C#<br>
+        Vulkan / Forward+ renderer<br>
+        Jolt Physics · ENet / WebRTC
+      </div>
+    </div>
+    <div class="timeline-wrap spine-godot" id="godot-timeline"></div>
+  </div>
+
+  <hr class="hr">
+
+  <!-- ── ALT PATHS ───────────────────────────────────────────────── -->
+  <div class="alt-section">
+    <div class="section-header">
+      <h2 class="section-title">Alternative Development Paths</h2>
+      <p class="section-sub">Choose based on team size, timeline &amp; ambition</p>
+    </div>
+    <div class="paths-grid" id="paths-grid"></div>
+  </div>
+
+  <footer>
+    CafeDND / Tavern Table &nbsp;·&nbsp; Roadmap v3.0 &nbsp;·&nbsp; May 2026
+    &nbsp;·&nbsp; Research: Three.js + Tauri &nbsp;·&nbsp; Production: Godot 4.x
+  </footer>
+
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     PHASE DETAIL VIEW
+══════════════════════════════════════════════════════════════════ -->
+<div id="view-phase" class="view">
+  <div id="phase-content"></div>
+</div>
+
+<script src="data.js"></script>
+<script src="roadmap.js"></script>
+</body>
+</html>

@@ -1,0 +1,339 @@
+/* Tavern Table — UI Wireframe Sketches */
+:root {
+  --paper: #f6efde;
+  --paper-deep: #ebe0c5;
+  --paper-edge: #d8c79e;
+  --ink: #2a2317;
+  --ink-soft: #5a4b35;
+  --pencil: #8a7a5e;
+  --pencil-light: #b6a380;
+  --gold: #c08a2a;
+  --gold-deep: #9a6c18;
+  --danger: #a83838;
+  --moss: #5d7548;
+  --mist: #6f8190;
+  --shadow: rgba(60, 40, 10, 0.18);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background:
+    radial-gradient(ellipse at 30% 10%, #fff7e3 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, #f0e2bc 0%, transparent 60%),
+    var(--paper);
+  color: var(--ink);
+  font-family: 'Kalam', 'Patrick Hand', cursive;
+  font-size: 15px;
+  line-height: 1.4;
+  min-height: 100vh;
+}
+
+/* subtle paper grain */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  pointer-events: none;
+  background-image:
+    repeating-linear-gradient(0deg, rgba(120,90,40,0.025) 0 1px, transparent 1px 3px),
+    repeating-linear-gradient(90deg, rgba(120,90,40,0.02) 0 1px, transparent 1px 3px);
+  z-index: 0;
+}
+
+.page {
+  position: relative;
+  z-index: 1;
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 56px 36px 120px;
+}
+
+/* ---- cover ---- */
+.cover {
+  border: 2px solid var(--ink);
+  border-radius: 4px;
+  padding: 36px 44px;
+  background: rgba(255, 250, 235, 0.5);
+  box-shadow: 6px 6px 0 var(--paper-edge);
+  position: relative;
+  margin-bottom: 36px;
+}
+.cover .stamp {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  border: 1.5px solid var(--gold-deep);
+  color: var(--gold-deep);
+  padding: 6px 12px;
+  border-radius: 2px;
+  transform: rotate(2deg);
+  background: rgba(255, 240, 200, 0.4);
+}
+.cover h1 {
+  font-family: 'Cinzel', serif;
+  font-weight: 600;
+  font-size: 44px;
+  margin: 0 0 6px;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+}
+.cover .sub {
+  font-family: 'Caveat', cursive;
+  font-size: 24px;
+  color: var(--gold-deep);
+  margin: 0 0 18px;
+}
+.cover .legend {
+  display: flex;
+  gap: 22px;
+  flex-wrap: wrap;
+  font-family: 'Kalam', cursive;
+  font-size: 13px;
+  color: var(--ink-soft);
+  margin-top: 14px;
+}
+.cover .legend b {
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.cover .toc {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px 28px;
+  margin-top: 18px;
+  font-family: 'Kalam', cursive;
+  font-size: 14px;
+}
+.cover .toc a {
+  color: var(--ink-soft);
+  text-decoration: none;
+  border-bottom: 1px dashed var(--pencil-light);
+  padding: 2px 0;
+}
+.cover .toc a::before {
+  content: '◇ ';
+  color: var(--gold);
+}
+.cover .toc a:hover {
+  color: var(--gold-deep);
+  border-bottom-color: var(--gold);
+}
+
+/* ---- section ---- */
+section.screen {
+  margin-top: 64px;
+  scroll-margin-top: 30px;
+}
+.section-head {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 4px;
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 8px;
+}
+.section-head .num {
+  font-family: 'Cinzel', serif;
+  font-size: 28px;
+  color: var(--gold-deep);
+  font-weight: 600;
+}
+.section-head h2 {
+  font-family: 'Cinzel', serif;
+  font-size: 26px;
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+.section-head .ref {
+  margin-left: auto;
+  font-family: 'Caveat', cursive;
+  font-size: 18px;
+  color: var(--pencil);
+}
+.section-intent {
+  font-family: 'Caveat', cursive;
+  font-size: 20px;
+  color: var(--ink-soft);
+  margin: 10px 0 22px;
+  max-width: 900px;
+}
+
+/* row of variations */
+.variants {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 26px;
+}
+
+/* sketch card */
+.sketch {
+  background: rgba(255, 248, 230, 0.55);
+  border: 1.5px solid var(--ink);
+  border-radius: 3px;
+  padding: 16px 16px 14px;
+  position: relative;
+  box-shadow: 4px 4px 0 var(--paper-edge);
+}
+.sketch::after {
+  /* tape */
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-1deg);
+  width: 64px;
+  height: 18px;
+  background: rgba(220, 195, 130, 0.55);
+  border-left: 1px dashed rgba(140, 110, 60, 0.4);
+  border-right: 1px dashed rgba(140, 110, 60, 0.4);
+}
+.sketch h3 {
+  font-family: 'Cinzel', serif;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0 0 2px;
+  color: var(--ink);
+}
+.sketch .tag {
+  font-family: 'Caveat', cursive;
+  font-size: 18px;
+  color: var(--gold-deep);
+  margin: 0 0 10px;
+}
+.sketch .frame {
+  background: #fffaee;
+  border: 1.5px solid var(--pencil);
+  border-radius: 2px;
+  position: relative;
+  overflow: hidden;
+}
+.sketch svg.canvas { display: block; width: 100%; height: auto; }
+.sketch .notes {
+  margin-top: 10px;
+  margin-bottom: 0;
+  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-family: 'Caveat', cursive;
+  font-size: 15px;
+  line-height: 1.25;
+  color: var(--ink-soft);
+}
+.sketch .notes li {
+  list-style: none;
+  position: relative;
+  padding-left: 16px;
+  min-height: 0;
+}
+.sketch .notes li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+}
+
+/* ----- style guide ----- */
+.guide-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+.guide-card {
+  background: rgba(255, 248, 230, 0.55);
+  border: 1.5px solid var(--ink);
+  border-radius: 3px;
+  padding: 20px 22px;
+  box-shadow: 4px 4px 0 var(--paper-edge);
+}
+.guide-card h3 {
+  font-family: 'Cinzel', serif;
+  font-size: 14px;
+  margin: 0 0 14px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-bottom: 1px dashed var(--pencil-light);
+  padding-bottom: 6px;
+}
+.swatches { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.swatch {
+  border: 1.2px solid var(--ink);
+  border-radius: 3px;
+  padding: 8px 8px 6px;
+  font-family: 'Kalam', cursive;
+  font-size: 12px;
+}
+.swatch .chip {
+  display: block;
+  height: 48px;
+  border: 1px solid var(--ink);
+  border-radius: 2px;
+  margin-bottom: 6px;
+}
+.swatch .lbl { font-weight: 700; }
+.swatch .hex { color: var(--ink-soft); font-size: 11px; }
+
+.type-stack { display: grid; gap: 12px; }
+.type-row {
+  border-bottom: 1px dashed var(--pencil-light);
+  padding-bottom: 10px;
+}
+.type-row .meta {
+  font-family: 'Kalam', cursive;
+  font-size: 12px;
+  color: var(--ink-soft);
+}
+.type-row .demo-cinzel { font-family: 'Cinzel', serif; }
+.type-row .demo-inter { font-family: 'Inter', sans-serif; }
+.type-row .demo-kalam { font-family: 'Kalam', cursive; }
+
+.spacing-scale { display: flex; align-items: flex-end; gap: 10px; }
+.spacing-scale .step {
+  background: var(--gold);
+  border: 1px solid var(--ink);
+}
+.spacing-scale .step-label {
+  font-family: 'Kalam', cursive;
+  font-size: 11px;
+  text-align: center;
+  color: var(--ink-soft);
+  margin-top: 4px;
+}
+
+.divider {
+  text-align: center;
+  font-family: 'Cinzel', serif;
+  letter-spacing: 0.5em;
+  color: var(--pencil);
+  margin: 60px 0 0;
+  font-size: 14px;
+}
+
+/* annotation arrows in svgs use class .ann */
+.ann-leader { stroke: var(--ink); stroke-width: 0.8; fill: none; stroke-dasharray: 2 2; }
+.ann-text { font-family: 'Caveat', cursive; font-size: 12px; fill: var(--ink-soft); }
+.ann-text.gold { fill: var(--gold-deep); font-weight: 700; }
+.lbl-text { font-family: 'Kalam', cursive; font-size: 11px; fill: var(--ink); }
+.lbl-display { font-family: 'Cinzel', serif; font-size: 12px; fill: var(--ink); letter-spacing: 0.1em; }
+.tiny { font-family: 'Kalam', cursive; font-size: 9px; fill: var(--ink-soft); }
+
+/* utility shape classes */
+.stroke-ink { stroke: var(--ink); fill: none; stroke-width: 1.2; stroke-linecap: round; stroke-linejoin: round; }
+.stroke-pencil { stroke: var(--pencil); fill: none; stroke-width: 0.9; stroke-linecap: round; }
+.stroke-gold { stroke: var(--gold-deep); fill: none; stroke-width: 1.4; stroke-linecap: round; }
+.fill-paper { fill: #fffaee; }
+.fill-paper-deep { fill: #f1e6c8; }
+.fill-gold-soft { fill: #f0d99a; }
+.fill-gold { fill: var(--gold); }
+.fill-ink-soft { fill: rgba(40,30,15,0.08); }
+.fill-danger { fill: var(--danger); }
+.fill-moss { fill: var(--moss); }
+.fill-mist { fill: var(--mist); }
