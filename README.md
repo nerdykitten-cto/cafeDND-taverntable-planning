@@ -136,15 +136,25 @@ Here are the details for setting up the multiple parts of the project!
 If you wish to view the Roadmap plans that is easy! First clone this entire project!
 How do you do that?
 First, Click the "Code" button, it will then show a Dialog box with a bunch of stuff in it!
+<img width="1307" height="660" alt="image" src="https://github.com/user-attachments/assets/9d0a646a-f4d8-4ce6-82ae-e3f33628c5a4" />
 
 Ignore everything and instead click the "Download ZIP" and it will ask where you want to download the zip, Put it in where you put your Recreational Projects! (Or in your downloads, idk).
+<img width="1283" height="661" alt="image" src="https://github.com/user-attachments/assets/8da8273a-24ee-468c-8f91-4d5f4b91c017" />
 
-Then once it is downloaded. you take the ZIP file and extract it to a folder named "CafeDND" (that you have to make).
+<img width="1473" height="690" alt="image" src="https://github.com/user-attachments/assets/21fec732-245a-4f2e-934d-2971aee839dc" />
+
+Then once it is downloaded. You have to make a folder named "CafeDND", this is where the ZIP File will be extracted to.
+<img width="977" height="778" alt="Screenshot 2026-05-11 231053" src="https://github.com/user-attachments/assets/8d12a2eb-40f1-4891-9673-a01fe0467ed6" />
+
+Once it is made, then extract the ZIP File stuff in the Folder!
+<img width="545" height="617" alt="image" src="https://github.com/user-attachments/assets/c5e2088b-6ff2-402a-9577-f43bd6c72764" />
+
+<img width="976" height="780" alt="Screenshot 2026-05-11 231350" src="https://github.com/user-attachments/assets/5f511124-af0d-42e9-9866-816de3dc763f" />
 
 Once the extraction process is done, then go in the "CafeDND" folder, and just click the "Roadmap.html" file!
+<img width="969" height="783" alt="image" src="https://github.com/user-attachments/assets/be8e0549-ab0d-4a51-8c14-1d2d80ae78a2" />
+
+<img width="979" height="785" alt="image" src="https://github.com/user-attachments/assets/fd4ebd80-1d95-4d65-bfd4-c0a1ece16775" />
 
 You should see this screen on your browser!
-
-
-
-You first take the Git Link from the Github page
+<img width="1907" height="912" alt="image" src="https://github.com/user-attachments/assets/b33b30e5-07d9-4ee9-bd39-dddb63a796b2" />
