@@ -39,8 +39,9 @@ function buildLegend() {
     { color: '#ff9800', label: 'Multiplayer' },
     { color: '#ef5350', label: 'Game Systems' },
     { color: '#9c27b0', label: 'UI & Interface' },
-    { color: '#8bc34a', label: 'Polish & QA' },
-    { color: '#ffc107', label: 'Playtesting' },
+    { color: '#8bc34a', label: 'Website Launch' },
+    { color: '#ffc107', label: 'Supabase + Testing' },
+    { color: '#78909c', label: 'Tauri Desktop' },
     { color: '#c9a227', label: 'Godot Track' },
   ];
   el('legend').innerHTML = items.map(i =>
