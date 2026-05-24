@@ -1,160 +1,160 @@
-# A CafeD&D Feature - TavernTable
-This is CafeD&D killer feature - TavernTable. Where you can play D&D online in the most interactive way possible.
+# 🎲 Tavern Table — by CafeD&D
 
-# Tavern Table — Product Description
+> *A new way to play Dungeons & Dragons online. Built for the people sitting around the table.*
 
-*Codename: CafeDND · Document Version: 1.0 · May 2026*
+---
+
+> 👨‍💻 **Are you a developer?** This file is written for DMs and players. For technical documentation — stack, architecture, setup, and dev guides — please read [`FOR_DEVELOPERS.md`](./FOR_DEVELOPERS.md) instead.
+
+---
 
 ## What Is Tavern Table?
 
-Tavern Table is a 3D virtual tabletop (VTT) platform for playing Dungeons & Dragons and other tabletop RPGs online. Unlike existing VTT tools that present a flat, bird's-eye grid on a screen, Tavern Table places every player inside a richly detailed 3D room — seated around a real physical table with their own customizable avatar, surrounded by candles, books, and the ambient sounds of the setting.
+Tavern Table is an online tool for playing Dungeons & Dragons with your group — but unlike anything you've probably used before.
 
-The table itself is the product's soul. Its surface is not just decoration: it acts as a portal into the campaign world below.
+Instead of staring at a flat map on a screen, **you sit inside a 3D room**. Your character has a seat at the table. The other players are across from you. The Dungeon Master is at the head. It feels less like using software and more like actually being in the room together.
 
----
-
-## The Core Experience
-
-### The Room
-
-Players join a session and find themselves seated at a table in a 3D environment — initially "The Basement," a warm, lived-in D&D den with wood paneling, dim lamps, bookshelf rulebooks, and scattered pizza boxes. Other players' avatars sit across the table. The DM's seat is at the head. The atmosphere communicates "we're here to play" before a single die is rolled.
-
-### The Table Surface
-
-The top of the table renders a live tactical map — a top-down view of the current encounter area, complete with terrain, tokens representing each character and enemy, and a fog of war covering unexplored territory.
-
-### The Peek Mechanic
-
-This is what separates Tavern Table from every other VTT.
-
-A player or DM activates **Peek** — and the camera smoothly animates downward, through the surface of the table, emerging inside a fully realized 3D landscape beneath it. Rolling hills, forest canopies, dungeon corridors, or the spires of a city appear below you. Fog of war in this view manifests as actual mist, shrouding unexplored territory in mystery.
-
-The player is now literally *inside* the world map. They can look around, observe, and orient themselves — then transition back to the table with a reverse animation.
-
-This mechanic makes the campaign world feel inhabited and real in a way no 2D map tool can achieve.
+The table itself is where the magic happens. Its surface shows the live map of wherever your party is — every token, every enemy, every patch of fog covering the unknown.
 
 ---
 
-## Who It Is For
+## The Signature Feature — The Peek
 
-- **DMs** who want a tool that handles the full session — maps, encounters, initiative, NPC dialogue, ambient audio, notes — without leaving the app.
-- **Players** who want to feel present at the table with their friends, not staring at a flat grid.
-- **Groups** who play online regularly and are willing to try something better than Roll20 or Foundry if it genuinely improves the experience.
+Here's what makes Tavern Table different from every other online VTT (virtual tabletop) out there.
 
-The target player has probably used Roll20, Foundry VTT, or Owlbear Rodeo. They know the limitations. Tavern Table is the product that addresses the core complaint: *it doesn't feel like you're actually there.*
+Press **Peek** — and the camera smoothly dives *through* the surface of the table, emerging inside a fully realised 3D world below. Rolling terrain, dungeon corridors, forest paths. Fog of war appears as actual mist shrouding unexplored land.
 
----
+You are *inside* the world.
 
-## What Makes It Different
+Press Peek again and you rise back up to your seat at the table, ready to plan your next move.
 
-| Feature | Roll20 / Foundry | Tavern Table |
-|---|---|---|
-| Environment | Browser grid on flat canvas | Fully 3D room with atmosphere |
-| Map | 2D image with tokens | 3D live-rendered tactical map |
-| Peek Mechanic | Not present | Signature camera dive through table into 3D world |
-| Avatars | Profile pictures | 3D character models seated at the table |
-| Atmosphere | User-supplied background image | Curated 3D rooms with ambient audio and lighting |
-| Desktop App | Browser only or Electron (heavy) | Tauri native app (~4MB binary) or browser |
+No other tool does this. This is what Tavern Table is built around.
 
 ---
 
-## The Two Platforms
+## Who It's For
 
-### Research Version (Current Build Target)
-
-The first version of Tavern Table is built with web technology and delivered as both:
-
-- A **browser application** — accessible at any URL, no installation required
-- A **native desktop application** via Tauri — lightweight (~4MB), native performance, local file I/O
-
-This version is closed to the public. It will be tested by invited D&D groups to validate the concept before a full production version is committed to.
-
-**Technology:** Vite + TypeScript + Three.js + Tauri 2.0 (Rust) + Socket.io + Supabase
-
-### Production Version (Post-Validation)
-
-If the research version passes its feedback threshold (70%+ of test groups prefer it over their current tool), a full production version will be built in the Godot game engine. This version targets:
-
-- Commercial release on **Steam** and **itch.io**
-- Windows, macOS, and Linux desktop builds
-- Vulkan rendering for dramatically better visual quality
-- Built-in multiplayer (no third-party socket server)
+- **Dungeon Masters** who want one place to run everything — maps, enemies, notes, audio, encounter tracking — without switching between five different tools.
+- **Players** who want to feel genuinely present with their group, not just clicking tokens on a flat grid.
+- **Groups** who play online and have been putting up with Roll20, Foundry, or Discord screen-share because nothing better existed.
 
 ---
 
-## Core Feature Set (Research Version)
+## What's Being Built
 
-### For the DM
-
-- **Map Editor** — Place terrain tiles, props, and tokens on the table map
-- **Fog of War Controls** — Reveal areas as players explore; fog hidden areas automatically
-- **Token Management** — Place, move, and label all character and enemy tokens
-- **Encounter Panel** — Enemy HP tracking, conditions, and initiative order management
-- **DM Notes** — Auto-saving scratchpad for session notes, linked to campaign
-- **NPC Manager** — Portrait cards with stats, surface dialogue to all players
-- **Loot Tables** — Randomized loot generation, drag results to player inventories
-- **Ambient Audio Control** — Choose and crossfade looping room ambiance tracks for all players
-- **DM Screen** — Dedicated layout with all tools organized for session flow
+### For the Dungeon Master
+- 🗺️ **Map Editor** — Place terrain, props, and tokens on the table
+- 🌫️ **Fog of War** — Reveal the map as players explore; hide the rest
+- 🎭 **Token Management** — Move and label all characters and enemies
+- ⚔️ **Encounter Panel** — Track enemy HP, conditions, and turn order
+- 📝 **DM Notes** — Auto-saving scratchpad tied to the session
+- 👤 **NPC Manager** — Character cards with portraits and stats
+- 💰 **Loot Tables** — Roll randomised loot and send it to players
+- 🎵 **Ambient Audio** — Set the mood with looping background sound
+- 📐 **Range Ruler** — Quick, snappy tool for measuring distances on the map
+- 🔵 **Area of Effect Tools** — Show spell ranges and effects using shapes (circles, cones, lines, squares)
+- 🌓 **Day / Night Toggle** — Switch the room atmosphere with one button
+- 🏠 **Room Selection** — Choose between different 3D environments (The Basement, The Tavern Backroom, and more)
 
 ### For Players
-
-- **Character Sheet** — Full D&D 5th Edition sheet: stats, skills, HP, class features, spell slots
-- **Dice Roller** — Physics-simulated 3D dice (d4 through d20) with roll history
-- **Initiative Tracker** — Auto-rolled and displayed in session order
-- **Text Chat** — In-character and out-of-character channels, whispers to DM
-- **Peek** — Activate the Peek transition to enter the 3D world below the table
+- 📋 **Character Sheet** — Full D&D 5th Edition sheet built in (stats, skills, HP, spells, everything)
+- 🎲 **Dice Roller** — Physics dice that actually roll across the table (d4 through d20)
+- ⚡ **Initiative Tracker** — Automatically rolls and orders everyone's turn
+- 💬 **Chat** — In-character and out-of-character channels, plus private whispers to the DM
+- 👁️ **The Peek** — Dive through the table into the 3D world below
 
 ### For Everyone
-
-- **Session Lobby** — DM creates a room and shares a 6-character code; players join instantly
-- **Real-Time Sync** — All token movements, fog reveals, dice results, and HP changes appear instantly on all clients
-- **Invite-Only Auth** — Magic link authentication via email; no public signup
-- **Reconnect Handling** — Dropping and rejoining restores full session state
-
----
-
-## The Emotional Goal
-
-When someone who has never seen Tavern Table watches the Peek mechanic for the first time, they should say *"whoa."*
-
-When a D&D group finishes their first session on it, they should be reluctant to go back to their old tool.
-
-That is the bar. Everything in the product is built toward that reaction.
+- 🔗 **Session Lobby** — DM creates a room and shares a short code; players join instantly
+- ⚡ **Real-Time Sync** — Every move, fog reveal, and dice roll appears immediately on all screens
+- 🔒 **Invite-Only Access** — Private sessions only; no random people joining your game
+- 🔄 **Reconnect Handling** — If someone drops out, rejoining restores everything exactly as it was
 
 ---
 
-*Document Version: 1.0*
-*Last Updated: May 2026*
-*Codename: Tavern Table / CafeDND*
-*Stage: Research Version — Pre-Build*
+## Current Build Progress
 
+This is the **Research Version** — a closed, invite-only build being tested by real D&D groups before a full commercial release.
 
-# Setup
-Here are the details for setting up the multiple parts of the project!
+> Progress is shown across the nine development stages of the Research Version.
 
-## ROADMAP View
-If you wish to view the Roadmap plans that is easy! First clone this entire project!
-How do you do that?
-First, Click the "Code" button, it will then show a Dialog box with a bunch of stuff in it!
-<img width="1307" height="660" alt="image" src="https://github.com/user-attachments/assets/9d0a646a-f4d8-4ce6-82ae-e3f33628c5a4" />
+---
 
-Ignore everything and instead click the "Download ZIP" and it will ask where you want to download the zip, Put it in where you put your Recreational Projects! (Or in your downloads, idk).
-<img width="1283" height="661" alt="image" src="https://github.com/user-attachments/assets/8da8273a-24ee-468c-8f91-4d5f4b91c017" />
+### Stage 1 — Foundation & Setup
+*Getting the project running: servers, structure, core framework.*
+```
+██████████  100%  ✅ Complete
+```
 
-<img width="1473" height="690" alt="image" src="https://github.com/user-attachments/assets/21fec732-245a-4f2e-934d-2971aee839dc" />
+### Stage 2 — The 3D Room
+*Building "The Basement" — the 3D environment players sit in.*
+```
+██████████  100%  ✅ Complete
+```
 
-Then once it is downloaded. You have to make a folder named "CafeDND", this is where the ZIP File will be extracted to.
-<img width="977" height="778" alt="Screenshot 2026-05-11 231053" src="https://github.com/user-attachments/assets/8d12a2eb-40f1-4891-9673-a01fe0467ed6" />
+### Stage 3 — The Peek Mechanic & Map System
+*The signature camera dive through the table into a 3D world. Fog of war. Tokens on the table surface.*
+```
+██████████  100%  ✅ Complete
+```
 
-Once it is made, then extract the ZIP File stuff in the Folder!
-<img width="545" height="617" alt="image" src="https://github.com/user-attachments/assets/c5e2088b-6ff2-402a-9577-f43bd6c72764" />
+### Stage 4 — Multiplayer & Live Session Sync
+*Two people connect and see the same world. DM moves a token — everyone sees it instantly.*
+```
+██░░░░░░░░   20%  🔨 In Progress
+```
 
-<img width="976" height="780" alt="Screenshot 2026-05-11 231350" src="https://github.com/user-attachments/assets/5f511124-af0d-42e9-9866-816de3dc763f" />
+### Stage 5 — Core Game Systems
+*Dice physics, character sheets, D&D 5e combat rules, initiative.*
+```
+░░░░░░░░░░    0%  ⬜ Not Yet Started
+```
 
-Once the extraction process is done, then go in the "CafeDND" folder, and just click the "Roadmap.html" file!
-<img width="969" height="783" alt="image" src="https://github.com/user-attachments/assets/be8e0549-ab0d-4a51-8c14-1d2d80ae78a2" />
+### Stage 6 — DM & Player Interfaces
+*The actual panels and tools DMs and players use during a session.*
+```
+░░░░░░░░░░    0%  ⬜ Not Yet Started
+```
 
-<img width="979" height="785" alt="image" src="https://github.com/user-attachments/assets/fd4ebd80-1d95-4d65-bfd4-c0a1ece16775" />
+### Stage 7 — Website & Quality Pass
+*Hosted at a real URL. Performance tuned. Ready for outside testers.*
+```
+░░░░░░░░░░    0%  ⬜ Not Yet Started
+```
 
-You should see this screen on your browser!
-<img width="1907" height="912" alt="image" src="https://github.com/user-attachments/assets/b33b30e5-07d9-4ee9-bd39-dddb63a796b2" />
+### Stage 8 — Closed Playtesting with Real Groups
+*Invite real D&D groups. Collect feedback. Go / No-Go decision for full production.*
+```
+░░░░░░░░░░    0%  ⬜ Not Yet Started
+```
+
+### Stage 9 — Desktop App
+*Optional: wrap the browser version in a lightweight native desktop application.*
+```
+░░░░░░░░░░    0%  ⬜ Not Yet Started
+```
+
+---
+
+## After the Research Version
+
+If the research version passes its feedback threshold — meaning **70% or more of test groups prefer it over their current tool** — a full production version will be built.
+
+That version targets:
+- A commercial release on **Steam** and **itch.io**
+- Windows, Mac, and Linux support
+- Dramatically improved visuals using Vulkan rendering
+- Expanded room environments, more 3D character models, and a full asset library
+
+---
+
+## The Goal
+
+When someone watches the Peek for the first time, they should say *"whoa."*
+
+When a group finishes their first session on Tavern Table, they should be reluctant to go back to their old tool.
+
+Everything being built is in service of that reaction.
+
+---
+
+*Document Version: 2.0 · Last Updated: May 2026 · Stage: Research Version — In Active Development*
