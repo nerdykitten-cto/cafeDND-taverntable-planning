@@ -96,17 +96,17 @@ PHASE R8: TAURI DESKTOP (LATER MILESTONE)
 
 ### 3.3 Research Version Phases
 
-| Phase | Title | Timeline | Key Deliverable |
-|---|---|---|---|
-| R0 | Architecture & Setup | Weeks 1–2 | Monorepo scaffolded, local client + server running for all devs |
-| R1 | 3D Room & Core Scene | Weeks 2–4 | The Basement at 60fps in browser, basic camera |
-| R2 | Peek Mechanic & Map System | Weeks 4–7 | Peek transition + fog of war + token placement |
-| R3 | Multiplayer & Session Sync | Weeks 7–10 | Two browser clients synced in real time via local server |
-| R4 | Core Game Systems | Weeks 10–13 | Physics dice + character sheet + initiative tracker |
-| R5 | DM & Player Interfaces | Weeks 13–16 | Full DM screen + Player screen functional end-to-end |
-| R6 | Website Launch & QA | Weeks 16–19 | Hosted URL, internal dogfood sessions pass, zero critical bugs |
-| R7 | Supabase + Closed Playtesting | Weeks 19–24 | Invite-only auth, 10–15 external tester groups, feedback gate |
-| R8 | Tauri Desktop Build | Post-gate or parallel to R7 | Native desktop download available alongside website |
+| Phase | Title | Timeline | Key Deliverable | Status |
+|---|---|---|---|---|
+| R0 | Architecture & Setup | Weeks 1–2 | Monorepo scaffolded, local client + server running for all devs | ✅ Complete |
+| R1 | 3D Room & Core Scene | Weeks 2–4 | The Basement at 60fps in browser, basic camera | ✅ Complete |
+| R2 | Peek Mechanic & Map System | Weeks 4–7 | Peek transition + fog of war + token placement | ✅ Complete |
+| R3 | Multiplayer & Session Sync | Weeks 7–10 | Two browser clients synced in real time via local server | ✅ Complete |
+| R4 | Core Game Systems | Weeks 10–13 | Physics dice + character sheet + initiative tracker | 🔨 Next Up |
+| R5 | DM & Player Interfaces | Weeks 13–16 | Full DM screen + Player screen functional end-to-end | ⬜ Not started |
+| R6 | Website Launch & QA | Weeks 16–19 | Hosted URL, internal dogfood sessions pass, zero critical bugs | ⬜ Not started |
+| R7 | Supabase + Closed Playtesting | Weeks 19–24 | Invite-only auth, 10–15 external tester groups, feedback gate | ⬜ Not started |
+| R8 | Tauri Desktop Build | Post-gate or parallel to R7 | Native desktop download available alongside website | ⬜ Not started |
 
 ### 3.4 Repository Structure
 
@@ -704,8 +704,8 @@ The Peek mechanic is the product's soul. Everything else is tooling around it.
 
 ---
 
-*Document Version: 4.0*
-*Last Updated: May 2026*
+*Document Version: 4.1*
+*Last Updated: May 2026 — R3 Complete*
 *Research Stack: Three.js + Vite + TypeScript + Socket.io*
 *Production Stack: Godot 4.x*
 *Codename: Tavern Table / CafeDND*

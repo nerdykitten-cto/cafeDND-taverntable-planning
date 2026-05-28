@@ -85,22 +85,31 @@ All from `cafe-dnd-web/`:
 
 ```
 cafe-dnd-web/
+  index.html        ← auth screen (Create Account)
+  lobby.html        ← lobby (create / join room)
+  waiting.html      ← waiting room (pre-game)
+  game.html         ← active session (3D game)
+  settings.html     ← settings
   src/
+    pages/          ← per-page TypeScript entry points (auth, lobby, waiting, game, settings)
     scenes/         ← Lane A: Three.js renderer, RoomScene, WorldScene, Peek
     systems/        ← Lane A/B: PeekSystem, FogSystem, initiative, encounter
     physics/        ← Lane B: Rapier.js dice physics
     ui/             ← Lane D: DOM panels overlaid on canvas
     audio/          ← Lane D: Howler.js audio engine
-    networking/     ← Lane C: typed Socket.io client helpers
+    networking/     ← Lane C: typed Socket.io client helpers + scene wiring
     assets/         ← Lane A: AssetLibrary (GLB/GLTF loader, scaffold)
     data/           ← Lane B: TypeScript data models
-    utils/
-    main.ts         ← renderer bootstrap + socket init + keyboard shortcuts
+    renderer.ts     ← WebGLRenderer singleton + resize handler
+    input.ts        ← keyboard shortcut handler
+    profile.ts      ← local user profile (mock auth, R0–R6)
+    main.ts         ← legacy reference entry
   server/
     index.ts        ← Express + Socket.io server entry
     session.ts      ← in-memory room/session state
     events.ts       ← Socket event handlers
     auth.ts         ← mock auth adapter (swapped for Supabase at R7)
+    security.ts     ← input validation, sanitization, rate limiting
   shared/
     types.ts        ← ALL socket event names + payload types (source of truth)
 ```
@@ -128,17 +137,30 @@ Each lane directory contains its own `CLAUDE.md` with full scope, constraints, a
 
 | File | Role |
 |------|------|
-| `src/main.ts` | Entry point: renderer, socket init, keyboard shortcuts, render loop |
+| `src/pages/auth.ts` | Auth screen entry point (index.html) |
+| `src/pages/lobby.ts` | Lobby entry point (lobby.html — create / join room) |
+| `src/pages/waiting.ts` | Waiting room entry point (waiting.html) |
+| `src/pages/game.ts` | Active game entry point (game.html) |
+| `src/pages/settings.ts` | Settings entry point (settings.html) |
 | `src/scenes/room.ts` | RoomScene — The Basement geometry, chairs, lighting, board pieces |
 | `src/scenes/world.ts` | WorldScene — terrain tiles, fog of war, props, render-to-texture |
 | `src/systems/peek.ts` | PeekSystem — GSAP camera dive (room ↔ world) |
-| `src/systems/fog.ts` | FogSystem — fog-of-war mask (reveal / reset / DM view) |
+| `src/systems/fog.ts` | FogSystem — fog-of-war mask (reveal / reset / DM view / revealCells) |
 | `src/assets/assetLibrary.ts` | AssetLibrary scaffold — GLB loader, ASSET_MANIFEST, types |
 | `src/networking/client.ts` | Typed Socket.io emit helpers (all emits go through here) |
+| `src/networking/handlers.ts` | Game socket → scene wiring (token:moved, fog:update, session:state) |
+| `src/renderer.ts` | WebGLRenderer singleton + resize handler |
+| `src/input.ts` | Keyboard shortcut handler (Peek, fog shortcuts) |
+| `src/profile.ts` | Local user profile (name, id — mock until R7) |
+| `src/ui/lobby-ui.ts` | Lobby / entry screen UI + DEV room panel |
+| `src/ui/waiting-room.ts` | Waiting room UI (player list, kick, start — DM and player views) |
+| `src/ui/game-ui.ts` | Game HUD, disconnect overlays, pause system, session lifecycle |
+| `src/ui/navbar.ts` | Persistent navbar + notification system |
 | `shared/types.ts` | Socket event names + payload types — single source of truth |
 | `server/index.ts` | Express + Socket.io server entry |
 | `server/session.ts` | In-memory room and session state |
 | `server/events.ts` | Socket event handlers |
+| `server/security.ts` | Input validation, sanitization, per-socket rate limiting |
 
 ---
 
@@ -171,8 +193,8 @@ All game state must remain JSON-serializable at all times.
 | R0 | Architecture & Setup | ✅ Complete |
 | R1 | 3D Room & Core Scene | ✅ Complete |
 | R2 | Peek Mechanic & Map System | ✅ Complete |
-| **R3** | **Multiplayer & Session Sync** | 🔨 **In Progress** |
-| R4 | Core Game Systems (dice, sheets, combat) | ⬜ Not started |
+| R3 | Multiplayer & Session Sync | ✅ Complete |
+| **R4** | **Core Game Systems (dice, sheets, combat)** | 🔨 **Next Up** |
 | R5 | DM & Player Interfaces (HUD, audio, asset wiring) | ⬜ Not started |
 | R6 | Website Launch & QA | ⬜ Not started |
 | R7 | Supabase + Closed Playtesting | ⬜ Not started |
@@ -218,4 +240,4 @@ Use `search_graph`, `trace_path`, `get_code_snippet`, and `get_architecture` bef
 
 ---
 
-*Last Updated: May 2026 · Research Version — R3 In Progress*
+*Last Updated: May 2026 · Research Version — R3 Complete, R4 Starting*

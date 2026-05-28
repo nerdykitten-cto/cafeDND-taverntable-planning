@@ -100,13 +100,13 @@ This is the **Research Version** — a closed, invite-only build being tested by
 ### Stage 4 — Multiplayer & Live Session Sync
 *Two people connect and see the same world. DM moves a token — everyone sees it instantly.*
 ```
-██░░░░░░░░   20%  🔨 In Progress
+██████████  100%  ✅ Complete
 ```
 
 ### Stage 5 — Core Game Systems
 *Dice physics, character sheets, D&D 5e combat rules, initiative.*
 ```
-░░░░░░░░░░    0%  ⬜ Not Yet Started
+░░░░░░░░░░    0%  🔨 Next Up
 ```
 
 ### Stage 6 — DM & Player Interfaces
@@ -157,4 +157,4 @@ Everything being built is in service of that reaction.
 
 ---
 
-*Document Version: 2.0 · Last Updated: May 2026 · Stage: Research Version — In Active Development*
+*Document Version: 2.1 · Last Updated: May 2026 · Stage: Research Version — R3 Complete, R4 Starting*
