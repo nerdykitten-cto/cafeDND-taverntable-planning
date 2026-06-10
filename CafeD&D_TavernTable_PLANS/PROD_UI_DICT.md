@@ -36,7 +36,8 @@ There are two primary screen layouts in Tavern Table:
 | Screen | Who sees it | When |
 |---|---|---|
 | **Auth Screen** | Everyone | Before joining a session |
-| **Lobby Screen** | DM and players | After login, before session begins |
+| **Home Screen** | DM and players | After login — mode selection (Host a Session / Join a Session) |
+| **Waiting Room** | DM and players | After room created/joined — pending approval then pre-game lobby |
 | **DM Screen** | Dungeon Master only | During an active session |
 | **Player Screen** | Players only | During an active session |
 
@@ -70,39 +71,105 @@ These are mutually exclusive full-page layouts. Within DM Screen and Player Scre
 
 ---
 
-## 2. Lobby Screen
+## 2. Home Screen
 
-**What it is:** The waiting room. DMs create a session here; players enter a room code to join.
+**What it is:** The mode-selection screen shown after login. The user chooses whether to host a session as DM or join one as a Player. This screen replaces the old single "Create / Join" lobby.
 
-### 2a. DM Lobby View
-
-**Layout:**
-- Room code displayed prominently — large, easy to copy or share (e.g., `DUNGEON · 4F2K9R`)
-- "Copy Code" button
-- Session title input (optional — names the session)
-- Campaign selector — dropdown to pick an existing campaign or start fresh
-- Connected players list — live updating as players join, showing avatar placeholder + display name
-- "Start Session" button — enabled once at least one player is connected
-- Waiting message while no players connected ("Waiting for players to join…")
-
-**States:**
-1. **No players** — Waiting message, Start button disabled
-2. **Players connected** — List populates, Start button enables
-3. **Starting** — Button shows spinner
-
-### 2b. Player Lobby View
+### 2a. DM Mode — "Host a Session"
 
 **Layout:**
-- Room code input — 6-character code provided by the DM
-- "Join Session" button
-- Post-join: "Waiting for the DM to start…" with connected player count
-- Campaign/session name shown once joined
+- Two-card layout: DM card on the left, Player card on the right (or stacked vertically on narrow screens)
+- **DM card:**
+  - Header: "Host a Session"
+  - Host Address field — pre-filled from saved profile (`http://localhost:3001` default); editable for LAN or VPS address
+  - "▶ Host a Game" button — gold, prominent
+  - Small note: "Start `tavern-host` on your machine before clicking"
 
 **States:**
-1. **Default** — Code input, join button
-2. **Joining** — Spinner
-3. **Waiting** — Connected state, player list, waiting message
-4. **Error** — "Room not found" or "Room is full"
+1. **Default** — Address pre-filled, button enabled
+2. **Connecting** — Button shows spinner; "Connecting to host…"
+3. **Connected** — Navigates to Waiting Room (DM view)
+4. **Error** — "Could not reach host at [address]" — inline error below address field
+
+**Design notes:**
+- The host address field communicates that the DM owns their server. Keep it visible but not intimidating.
+- On successful connect, profile saves the address so it persists next session.
+
+---
+
+### 2b. Player Mode — "Join a Session"
+
+**Layout:**
+- **Player card:**
+  - Header: "Join a Session"
+  - Relay code input — 6-character or formatted (e.g., `TT-4829`) — auto-uppercases input
+  - "▶ Join Game" button
+  - Subtle link: "Connect via direct address ▾" — expands to show raw host address input for LAN play
+
+**States:**
+1. **Default** — Code input empty, button enabled
+2. **Connecting** — "Connecting…" spinner
+3. **Pending** — Navigates to Waiting Room (player pending state — see §2d)
+4. **Error** — "Room not found", "Invalid code", or "Connection failed" — inline below input
+
+---
+
+### 2c. DM Waiting Room
+
+**What it is:** The DM's pre-game lobby after a room is created. Replaces the old waiting room with a pending-approval layer on top.
+
+**Layout:**
+- **Relay code display** — large, click-to-copy, labeled "Share with players" (e.g., `TT · 4829`)
+  - If relay not active: shows host address instead with a note to share it
+- **Pending Requests section** (appears above player list when someone is waiting):
+  - Each pending player shown as a row: avatar placeholder, display name, [✓ Accept] and [✗ Reject] buttons
+  - "Accept All" shortcut button if multiple players are pending
+- **In Session section** — accepted players list; DM badge on DM's own entry; [Kick] button per player
+- **"Start Session" button** — gold, bottom of panel; disabled if no accepted players
+- **"Close Room" link** — ends the session for all before it starts
+
+**States:**
+1. **Empty** — No players pending or accepted; "Waiting for players to join..." message
+2. **Pending** — One or more pending requests shown; Start button still disabled
+3. **Ready** — At least one accepted player; Start button enables
+4. **Starting** — Start button shows spinner
+
+**Design notes:**
+- The pending vs accepted distinction is the core of this screen. Visual separation between the two sections must be clear — consider a subtle divider line or background difference.
+- Accept/Reject buttons should be color-coded (green / red) but restrained — no harsh colors.
+
+---
+
+### 2d. Player Waiting Room — Pending State
+
+**What it is:** What the player sees after entering a relay code, before the DM accepts them.
+
+**Layout:**
+- Full-height neutral card, centered
+- Large animated spinner or hourglass icon
+- "Waiting for the Dungeon Master to accept you…"
+- Player's own display name shown below (confirmation they connected correctly)
+- "Cancel" link — returns to Home Screen
+
+**States:**
+1. **Pending** — Spinner, waiting message
+2. **Accepted** — Transitions to normal Waiting Room (player view)
+3. **Rejected** — Spinner replaced with rejection message; reason shown if DM provided one; "Return to Home" button
+
+---
+
+### 2e. Player Waiting Room — Accepted State
+
+**Layout:**
+- Room code shown (for reference)
+- Player list — live-updating as others are accepted
+- DM shown at top with DM badge
+- "Waiting for the Dungeon Master to begin…" status message
+- **Leave Room** button
+
+**States:**
+1. **Waiting** — Player list populates, waiting message
+2. **Starting** — "Session is starting…" transition, navigates to game.html
 
 ---
 

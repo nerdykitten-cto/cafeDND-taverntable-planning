@@ -68,7 +68,7 @@ The first version of Tavern Table is built with web technology and delivered as 
 
 This version is closed to the public. It will be tested by invited D&D groups to validate the concept before a full production version is committed to.
 
-**Technology:** Vite + TypeScript + Three.js + Tauri 2.0 (Rust) + Socket.io + Supabase
+**Technology:** Vite + TypeScript + Three.js + Socket.io + `tavern-relay` (custom WS relay) + Tauri 2.0 (Rust, R8) + Supabase (R7 only)
 
 ### Production Version (Post-Validation)
 
@@ -105,9 +105,9 @@ If the research version passes its feedback threshold (70%+ of test groups prefe
 
 ### For Everyone
 
-- **Session Lobby** — DM creates a room and shares a 6-character code; players join instantly
+- **Session Lobby** — DM runs a game host on their own machine (local or internet), shares a relay code; players enter the code and wait for DM approval before entering the session
 - **Real-Time Sync** — All token movements, fog reveals, dice results, and HP changes appear instantly on all clients
-- **Invite-Only Auth** — Magic link authentication via email; no public signup
+- **Account System** — Local-first profile (name, email, password, role preference); no cloud dependency through R6
 - **Reconnect Handling** — Dropping and rejoining restores full session state
 
 ---

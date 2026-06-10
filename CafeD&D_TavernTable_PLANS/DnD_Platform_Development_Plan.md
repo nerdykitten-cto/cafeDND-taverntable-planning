@@ -1,6 +1,6 @@
 # Tavern Table / CafeDND — Development Plan & Roadmap
 
-*Document Version: 4.0 · Last Updated: May 2026*
+*Document Version: 4.2 · Last Updated: June 2026*
 
 ---
 
@@ -102,8 +102,9 @@ PHASE R8: TAURI DESKTOP (LATER MILESTONE)
 | R1 | 3D Room & Core Scene | Weeks 2–4 | The Basement at 60fps in browser, basic camera | ✅ Complete |
 | R2 | Peek Mechanic & Map System | Weeks 4–7 | Peek transition + fog of war + token placement | ✅ Complete |
 | R3 | Multiplayer & Session Sync | Weeks 7–10 | Two browser clients synced in real time via local server | ✅ Complete |
-| R4 | Core Game Systems | Weeks 10–13 | Physics dice + character sheet + initiative tracker | 🔨 Next Up |
-| R5 | DM & Player Interfaces | Weeks 13–16 | Full DM screen + Player screen functional end-to-end | ⬜ Not started |
+| R4a | Lobby & Networking Overhaul | Weeks 10–12 | P2P DM-as-host model, `tavern-relay` service, home screen, join approval flow | 🔨 Next Up |
+| R4b | Core Game Systems | Weeks 12–15 | Physics dice + character sheet + initiative tracker | ⬜ Not started |
+| R5 | DM & Player Interfaces | Weeks 15–18 | Full DM screen + Player screen functional end-to-end | ⬜ Not started |
 | R6 | Website Launch & QA | Weeks 16–19 | Hosted URL, internal dogfood sessions pass, zero critical bugs | ⬜ Not started |
 | R7 | Supabase + Closed Playtesting | Weeks 19–24 | Invite-only auth, 10–15 external tester groups, feedback gate | ⬜ Not started |
 | R8 | Tauri Desktop Build | Post-gate or parallel to R7 | Native desktop download available alongside website | ⬜ Not started |
@@ -122,10 +123,14 @@ cafe-dnd-web/
 │   ├── data/          # TypeScript data models: character, campaign, NPC
 │   └── utils/
 ├── server/
-│   ├── index.ts       # Socket.io server entry point
+│   ├── index.ts       # Game host entry point (runs on DM's machine)
 │   ├── session.ts     # Session state, room management
 │   ├── auth.ts        # Mock auth (R0–R6) → Supabase adapter (R7)
-│   └── events.ts      # Shared event type contracts (imported by client too)
+│   ├── events.ts      # Socket event handlers
+│   └── relay-client.ts  # Connects game host to relay; tunnels player WS (R4a)
+├── tavern-relay/      # Standalone relay service for NAT traversal (R4a)
+│   ├── index.ts       # WebSocket proxy — reverse tunnel + player multiplexing
+│   └── package.json   # Separate package (dep: ws)
 ├── src-tauri/         # Tauri 2.0 Rust backend (added at R8)
 ├── shared/
 │   └── types.ts       # Types shared by client and server

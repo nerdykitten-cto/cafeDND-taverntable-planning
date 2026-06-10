@@ -29,9 +29,10 @@
 |-------|-----------|
 | Frontend | Vite + TypeScript + Three.js |
 | Multiplayer client | Socket.io-client |
-| Server | Node.js + Express + Socket.io (port 3001) |
+| Game host (DM's machine) | Node.js + Express + Socket.io (port 3001) — runs on DM's local machine or VPS |
+| Relay service | `tavern-relay/` — custom Node.js + ws WebSocket proxy for NAT traversal *(R4a)* |
 | Animation | GSAP 3.x (Peek camera transition) |
-| Dice physics | Rapier.js WASM *(R4 — not yet integrated)* |
+| Dice physics | Rapier.js WASM *(R4b — not yet integrated)* |
 | Audio | Howler.js *(R5 — not yet integrated)* |
 | Desktop wrapper | Tauri 2.0 (Rust) *(R8 — not yet integrated)* |
 | Auth / DB | Supabase *(R7 only — local stub active through R6)* |
@@ -50,11 +51,21 @@ npm run dev:all     # run Vite client + Socket.io server concurrently
 Or separately:
 
 ```bash
-# Terminal 1 — Socket.io server (port 3001)
+# Terminal 1 — Game host / Socket.io server (port 3001)
 npm run server:dev
 
 # Terminal 2 — Vite frontend (port 5173)
 npm run dev
+```
+
+For internet play with relay NAT traversal (optional, from `tavern-relay/`):
+
+```bash
+# Terminal 3 — Relay service (port 3002)
+cd tavern-relay && npm install && npm start
+
+# Then restart the server with relay wired in:
+RELAY_URL=ws://localhost:3002 npm run server:dev
 ```
 
 Open **http://localhost:5173**. You should see the 3D basement scene with `[socket] connected` in the browser console.
@@ -86,8 +97,8 @@ All from `cafe-dnd-web/`:
 ```
 cafe-dnd-web/
   index.html        ← auth screen (Create Account)
-  lobby.html        ← lobby (create / join room)
-  waiting.html      ← waiting room (pre-game)
+  lobby.html        ← home screen (DM host / Player join mode selection)
+  waiting.html      ← waiting room (pending approval + pre-game)
   game.html         ← active session (3D game)
   settings.html     ← settings
   src/
@@ -105,13 +116,17 @@ cafe-dnd-web/
     profile.ts      ← local user profile (mock auth, R0–R6)
     main.ts         ← legacy reference entry
   server/
-    index.ts        ← Express + Socket.io server entry
+    index.ts        ← Express + Socket.io server entry (DM's game host — runs on DM's machine)
     session.ts      ← in-memory room/session state
     events.ts       ← Socket event handlers
     auth.ts         ← mock auth adapter (swapped for Supabase at R7)
     security.ts     ← input validation, sanitization, rate limiting
+    relay-client.ts ← registers game host with relay service, tunnels player connections
   shared/
     types.ts        ← ALL socket event names + payload types (source of truth)
+tavern-relay/       ← standalone relay service (NAT traversal for internet play)
+  index.ts          ← WebSocket proxy server — multiplexes player WS to DM's host via reverse tunnel
+  package.json      ← separate package, dep: ws
 ```
 
 ---
@@ -160,10 +175,12 @@ Each lane directory contains its own `CLAUDE.md` with full scope, constraints, a
 | `src/ui/navbar.ts` | Persistent navbar + notification system |
 | `src/ui/settings-ui.ts` | Settings screen UI (account, role, danger zone) |
 | `shared/types.ts` | Socket event names + payload types — single source of truth |
-| `server/index.ts` | Express + Socket.io server entry |
+| `server/index.ts` | Express + Socket.io server entry — DM's game host process |
 | `server/session.ts` | In-memory room and session state |
 | `server/events.ts` | Socket event handlers |
 | `server/security.ts` | Input validation, sanitization, per-socket rate limiting |
+| `server/relay-client.ts` | Connects game host to relay service; tunnels player WebSocket connections |
+| `tavern-relay/index.ts` | Standalone relay service — transparent WS proxy for NAT traversal |
 
 ---
 
@@ -197,7 +214,8 @@ All game state must remain JSON-serializable at all times.
 | R1 | 3D Room & Core Scene | ✅ Complete |
 | R2 | Peek Mechanic & Map System | ✅ Complete |
 | R3 | Multiplayer & Session Sync | ✅ Complete |
-| **R4** | **Core Game Systems (dice, sheets, combat)** | 🔨 **Next Up** |
+| **R4a** | **Lobby & Networking Overhaul — P2P DM-as-host, relay service, join approval** | 🔨 **Next Up** |
+| R4b | Core Game Systems (dice physics, character sheets, initiative, combat) | ⬜ Not started |
 | R5 | DM & Player Interfaces (HUD, audio, asset wiring) | ⬜ Not started |
 | R6 | Website Launch & QA | ⬜ Not started |
 | R7 | Supabase + Closed Playtesting | ⬜ Not started |
@@ -239,24 +257,31 @@ Tracked in [`DESIGN_NOTES.md`](./DESIGN_NOTES.md). All future design decisions g
 
 ---
 
-### Lobby Screen — `src/ui/lobby-ui.ts` [Built — R3]
-- [ ] Role switcher: confirm DM-only vs player-only controls appear/hide correctly on role change
-- [ ] Rejoin banner countdown: verify copy is warm and clear, not technical
-- [ ] Dismiss button on pending banner: confirm it does not re-appear on page reload
-- [ ] DEV room panel: gate behind an `isDev` flag — must never appear in production builds
-- [ ] Empty state: what does a player see if they enter a wrong or expired room code?
-- [ ] Room code input: enforce uppercase display even if user types lowercase
-- [ ] "Create Room" vs "Join Room" button visual hierarchy should respond to preferred role (DM = Create primary, Player = Join primary)
+### Home Screen (Lobby) — `src/ui/lobby-ui.ts` [R4a — full rewrite]
+> Replaces the old create/join single screen. Now a two-card mode-selection screen.
+- [ ] **DM card**: host address input (pre-filled from profile), "Host a Game" CTA — gold, prominent
+- [ ] **Player card**: relay code entry (6-char, auto-uppercase), "Join Game" CTA
+- [ ] DM card: save host address to profile on connect — persists across sessions
+- [ ] Player card: "Connecting…" state while relay connection is established
+- [ ] Error states: host unreachable, relay code not found, room full
+- [ ] Rejoin banner: if `cafednd_session` in localStorage with valid `returnsAt`, show "Return to Session" countdown
+- [ ] DEV panel: gate behind `isDev` flag — never visible in production builds
+- [ ] Role is implicit from which card the user uses (DM card = DM; Player card = Player) — no separate role toggle needed on this screen
 
 ---
 
-### Waiting Room — `src/ui/waiting-room.ts` [Built — R3]
+### Waiting Room — `src/ui/waiting-room.ts` [R4a — targeted update]
+- [ ] **DM view: Pending Requests section** — appears above the player list; shows each pending player with [Accept ✓] and [Reject ✗] buttons
+- [ ] **DM view: relay code display** — large, click-to-copy; shown below room code; labeled "Share this code with players"
+- [ ] **DM view**: if relay not active (`state.relayCode` is null), show "Players connect via direct address" note instead
+- [ ] **Player view: pending state** — full-screen "Waiting for DM to accept you…" spinner until DM accepts
+- [ ] On `player:join-rejected`: show rejection reason (if any) + "Return to Home" link
 - [ ] DM badge styling — should feel distinguished, not just a plain text label
-- [ ] Kick button: add a confirmation step to prevent accidental kicks
-- [ ] Empty player list state: what does the DM see before anyone joins?
-- [ ] "Start Game" button: disable or warn if minimum player count not met
-- [ ] Player join animation — subtle entrance effect when a new player appears in the list
-- [ ] Room code display: click-to-copy or a visible copy button
+- [ ] Kick button on accepted players: add a confirmation step to prevent accidental kicks
+- [ ] Empty player list state: what does the DM see before anyone joins or has pending?
+- [ ] "Start Session" button: disable or warn if no accepted players present
+- [ ] Player join animation — subtle entrance effect when a player moves from pending → accepted
+- [ ] Accept/Reject button accessibility: keyboard-navigable, visible focus ring
 
 ---
 
@@ -466,4 +491,4 @@ Use `search_graph`, `trace_path`, `get_code_snippet`, and `get_architecture` bef
 
 ---
 
-*Last Updated: June 2026 · Research Version — R3 Complete, R4 Starting*
+*Last Updated: June 2026 · Research Version — R3 Complete, R4a (Lobby & Networking Overhaul) Starting*
