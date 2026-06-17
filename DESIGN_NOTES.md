@@ -8,7 +8,7 @@
 
 **Logged:** 2026-05-12
 **Roadmap target:** R5 (Research), G6 (Production)
-**Status:** Planned — not yet built
+**Status:** ✅ Built in R5 (Research) — Tavern Backroom variant selectable in the lobby. Production (G6) still pending.
 
 ### What
 A second selectable room environment: **The Tavern Backroom** (working title).
@@ -37,7 +37,7 @@ Having two rooms also validates the room-switching architecture before committin
 
 **Logged:** 2026-05-12
 **Roadmap target:** R5 (Research), G5 (Production)
-**Status:** Planned — not yet built
+**Status:** ✅ Built in R5 (Research) — `RoomScene.setAtmosphere()` 3s GSAP lerp, DM Night/Day toggle broadcast via `atmosphere:set`. Full time-of-day (G5) still pending.
 
 ### What
 A DM-controlled toggle in the Session Settings panel that switches the active room between two lighting presets: **Night** and **Day**.
@@ -71,7 +71,7 @@ const ATMOSPHERE = {
 
 **Logged:** 2026-05-12
 **Roadmap target:** R5 (Research — DM interfaces), G3+ (Production — full asset pipeline)
-**Status:** Placeholder scaffold in place — full wiring in R5
+**Status:** ✅ Wired in R5 (Research) — `WorldScene.setAssetLibrary()` + `addProp()` load GLBs via `modelUrl` with procedural fallback. No GLB art exists yet, so procedural geometry remains the active path until models are dropped into `/public/assets/`. Production pipeline (G3+) still pending.
 
 ### What
 A runtime asset library that loads **GLB/GLTF 3D files** and routes them into the scene dynamically. Covers four asset kinds:
