@@ -77,7 +77,10 @@ PHASE R0–R6: LOCAL DEVELOPMENT
 PHASE R6: WEBSITE DEPLOYMENT
 ─────────────────────────────────────────────────────────────────
   Client deployed to hosted URL (Vercel / Netlify or VPS)
-  Socket.io server deployed to VPS / Railway / Render
+  tavern-relay service deployed to VPS / Railway / Render with TLS (wss://)
+  Game host (Socket.io server) is NOT cloud-deployed — R4a DM-as-host model:
+    it runs on the DM's machine, another machine on the DM's LAN, or a
+    server the DM rents himself; internet players reach it via the relay
   Website becomes the primary way testers access the app
 
 PHASE R7: CLOSED TESTING + SUPABASE
@@ -335,7 +338,7 @@ Dev D reads state and renders it. Keep state shapes stable; document changes.
 - Local mock auth (R0–R6): hardcoded tokens, no email required
 - Supabase integration (R7 only): magic link auth, session persistence
 - Shared event type definitions imported by both client and server
-- Server deployment (R6): Railway / Render / VPS
+- Relay deployment (R6): Railway / Render / VPS with TLS — the game host itself stays DM-side (R4a DM-as-host: DM's machine, a LAN machine, or a DM-rented server)
 
 **Does NOT touch:** Three.js scene code, UI panel rendering, game rules logic.
 
