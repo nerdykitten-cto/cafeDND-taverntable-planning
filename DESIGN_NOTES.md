@@ -123,4 +123,23 @@ public/
 
 ---
 
+## DN-004 · Relay Is the Universal Connection Path (Production Site)
+
+**Logged:** 2026-07-11
+**Roadmap target:** R6 (Research)
+**Status:** Decided — implement/verify during R6
+
+### What
+From the hosted HTTPS site, the tavern-relay (TLS, `wss://`) is the **only supported path** to any game host that isn't `localhost`. The DM may run the host anywhere — own machine, a second LAN machine, or a rented server — and in every case internet/HTTPS-site players connect through the relay using the TT-XXXX code.
+
+### Why
+Browsers block a secure (HTTPS) page from opening plain `ws://` connections to non-localhost addresses (mixed content). Direct host-address connections from the production site would therefore fail for LAN and rented-server hosts unless each DM provisioned his own TLS certificate — tester-hostile. The relay already carries TLS once, for everyone.
+
+### How it fits
+- The lobby's direct host-address field remains a dev/LAN convenience when the client itself is served over plain http (local dev).
+- Rented-server DMs start the host with `RELAY_URL` pointing at the public relay and share the TT-code — no certificates on their box.
+- R6 tasks (roadmap data.js) include verifying all three host placements from the live site.
+
+---
+
 *Add new entries below with DN-NNN format. Keep entries short — this is a decision log, not a spec.*
