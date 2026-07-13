@@ -30,6 +30,7 @@ R1–R5 were merged with their **backend/data halves complete but several experi
 - **Character sheet UI: PARKED** by user instruction. Only the server-side `defaultSheet()` auto-create (R5D) is in scope — no sheet editor panel.
 - **Hosted website: deferred to R6.** Test distribution = zip / private GitHub (R5C). During this era testers run the client locally (http/localhost), so the DN-004 mixed-content restriction does not apply — direct connection to a port-forwarded DM host is a supported test-phase path alongside the relay.
 - **Access control (test phase):** shared build key baked into each distributed build (R5C). Known limitation: extractable by anyone holding the build — it blocks strangers, not leak-holders. Mitigations: rotate key per distribution wave; DM manual join-approval remains the second gate. Per-user invite keys arrive with Supabase at R7.
+- **Hosted relay service:** standing a public relay run by the team (for the security of the product and its users) is a **team decision** — implement it if/when the team agrees it is needed (expected at R6 per DN-004). Until then the test phase runs on LAN / port-forward direct / DM-self-hosted relay, all gated by the build key.
 - **Avatars (research version):** simple procedural stick-figure/low-poly humanoids only — one distinct look for the DM, one for Players. Full avatar creator stays at Godot G3.
 
 ---
