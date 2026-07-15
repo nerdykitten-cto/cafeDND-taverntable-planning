@@ -52,7 +52,7 @@ R1–R5 were merged with their **backend/data halves complete but several experi
 
 **Gate:** join as a player: you are IN a chair, the DM and other players are visibly seated around you, and looking around feels like moving your head — not flying a drone.
 
-**Status:** ⬜ Not started
+**Status:** ✅ Complete (merged to local `main` 2026-07-14, Session 13). Notes: look mode is an L-key toggle (user decision) — HUD fades, relative mouse steering, window-size-scaled speed; 4-player cap added (research-build policy, dynamic chairs at live release); fixed pre-existing duplicate-seat server bug. Camera-feel fixes (180° flip, steering) verified live with the user before merge.
 
 ---
 
