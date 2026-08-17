@@ -105,10 +105,15 @@ PHASE R8: TAURI DESKTOP (LATER MILESTONE)
 | R1 | 3D Room & Core Scene | Weeks 2–4 | The Basement at 60fps in browser, basic camera | ✅ Complete |
 | R2 | Peek Mechanic & Map System | Weeks 4–7 | Peek transition + fog of war + token placement | ✅ Complete |
 | R3 | Multiplayer & Session Sync | Weeks 7–10 | Two browser clients synced in real time via local server | ✅ Complete |
-| R4a | Lobby & Networking Overhaul | Weeks 10–12 | P2P DM-as-host model, `tavern-relay` service, home screen, join approval flow | 🔨 Next Up |
-| R4b | Core Game Systems | Weeks 12–15 | Physics dice + character sheet + initiative tracker | ⬜ Not started |
-| R5 | DM & Player Interfaces | Weeks 15–18 | Full DM screen + Player screen functional end-to-end | ⬜ Not started |
-| R6 | Website Launch & QA | Weeks 16–19 | Hosted URL, internal dogfood sessions pass, zero critical bugs | ⬜ Not started |
+| R4a | Lobby & Networking Overhaul | Weeks 10–12 | P2P DM-as-host model, `tavern-relay` service, home screen, join approval flow | ✅ Complete |
+| R4b | Core Game Systems | Weeks 12–15 | Physics dice + character sheet + initiative tracker | ✅ Complete |
+| R5 | DM & Player Interfaces | Weeks 15–18 | Full DM screen + Player screen functional end-to-end | ✅ Complete |
+| R5A | Seats, Cameras & Avatars | Week 18 | Seat-locked first-person camera, seated avatars | ✅ Complete |
+| R5B | Physics Dice Experience | Week 19 | Visible tumbling dice landing on the server's result | 🔨 Next Up |
+| R5C | Access Key & Test Distribution | Week 20 | Build key + zip/GitHub tester builds | ⬜ Not started |
+| R5D | Comms & Dice QoL | Week 21 | Channels, whispers, roll history, player bottom bar | ⬜ Not started |
+| R5E | DM Toolset | Weeks 22–23 | Map editor, encounter panel, notes, NPC manager | ⬜ Not started |
+| R6 | Website Launch & QA | Weeks 16–19 | Hosted URL, internal dogfood sessions pass, zero critical bugs | ⏸ Postponed until R5E closes |
 | R7 | Supabase + Closed Playtesting | Weeks 19–24 | Invite-only auth, 10–15 external tester groups, feedback gate | ⬜ Not started |
 | R8 | Tauri Desktop Build | Post-gate or parallel to R7 | Native desktop download available alongside website | ⬜ Not started |
 

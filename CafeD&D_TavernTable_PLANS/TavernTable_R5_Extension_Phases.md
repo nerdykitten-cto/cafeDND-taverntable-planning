@@ -85,6 +85,8 @@ R1–R5 were merged with their **backend/data halves complete but several experi
 **Tasks:**
 - Shared build key: `BUILD_KEY` injected at build/run time (env). Client presents it in the Socket.IO handshake (`auth` payload); host verifies **before** a join request reaches the DM's pending list; mismatch → polite rejection. `tavern-relay` optionally enforces the same key at the switchboard.
 - Key rotation procedure documented (new key per distribution wave).
+- **Mid-session join** — resolve [DN-005](../DESIGN_NOTES.md) first (open decision). If option 2 is chosen: active-phase joins from an unknown name become pending requests the DM accepts from the DM screen, seat via `nextFreeSeat()`, full `session:state` on accept, 4-player cap respected. If option 1: document the "everybody in the lobby before Start Session" limitation in the tester README. *(Spec audit 2026-08-17.)*
+- **CI pipeline** — R0 task never built (no `.github/` in the repo): GitHub Actions running `lint`, `type-check`, `build` on push. Lands here because this is the phase that first produces a distributable build. Also clear the two standing lint errors (`src/profile.ts` unused `_h`, `src/input.ts` unused expression) so the lint job can gate. *(Spec audit 2026-08-17.)*
 - Packaged test build: one script produces a zip — built static app + tiny local server + `run.bat`/`run.sh` + tester README (how to run, how to join by room code / relay code).
 - GitHub alternative: private repo layout + pull-and-run instructions for technical testers.
 - DM connectivity guide: LAN direct, port-forward direct, self-hosted relay, our relay — when each applies (test-phase local clients are exempt from mixed-content).
@@ -104,6 +106,7 @@ R1–R5 were merged with their **backend/data halves complete but several experi
 - Roll history panel (session-scoped) + quick-roll presets (common die combos).
 - Server auto-creates `defaultSheet()` per player on session start — unblocks the DM's Set-HP/conditions tools and the player HP panel. **No sheet editor UI** (parked).
 - Notification/toast polish for whispers and channel activity.
+- **Player bottom bar** — R5 spec'd "bottom bar (Character, Dice, Chat tabs)"; what shipped is a floating chat bubble with the dice tray inside the chat dock and no character entry point at all. Build the bar as the player's single home for the three tabs. Pairs naturally with the `defaultSheet()` auto-create above, which is what finally gives the Character tab something to show. *(Spec audit 2026-08-17.)*
 
 **Gate:** a table conversation (including a DM secret whisper) flows without any external tool; DM can damage a player and both see the HP bar move.
 
@@ -120,10 +123,34 @@ R1–R5 were merged with their **backend/data halves complete but several experi
 - Encounter panel: enemy list with HP/conditions, add/drag into the initiative order.
 - DM notes: plain-text scratchpad, auto-saved locally every 30s.
 - Basic NPC manager: name/stats card, "display dialogue to all players" action.
+- **GLB pipeline completion (DN-003 remainder)** — `assetLibrary.ts` uses a bare `GLTFLoader`; the R1 task "GLTFLoader + Draco compression + KTX2 textures" was never finished. Wire `DRACOLoader` + `KTX2Loader` here, where the prop picker first makes the DM load real GLBs, and land the first real assets in `/public/assets/models/` (all four asset dirs are still empty). *(Spec audit 2026-08-17.)*
 
 **Gate:** R5's original gate — *"Can a DM who has never used the app run a 30-minute session after a 5-minute introduction?"*
 
 **Status:** ⬜ Not started
+
+---
+
+## Spec audit — 2026-08-17
+
+A full spec-vs-build pass (static read of every completed phase card plus a live two-client run) found ten items that were **not** covered by R5A–R5E. Everything already tracked by this series was confirmed correctly absent; nothing marked ✅ was found broken. Disposition of the ten:
+
+| # | Finding | Disposition |
+|---|---|---|
+| 1 | Day atmosphere preset rendered **darker** than Night (contradicts DN-002) | ✅ Fixed on `fix/spec-audit-R5` |
+| 2 | Mid-session join hard-rejected once the room is active | → **R5C**, blocked on [DN-005](../DESIGN_NOTES.md) |
+| 3 | CI pipeline (R0 task) never built; 2 standing lint errors | → **R5C** |
+| 4 | Draco/KTX2 never wired (R1 task); asset dirs empty | → **R5E** |
+| 5 | Player bottom bar (Character/Dice/Chat tabs) never built (R5 task) | → **R5D** |
+| 6 | Lobby did not prefill the name from the saved profile | ✅ Fixed on `fix/spec-audit-R5` |
+| 7 | `favicon.ico` 404 on every page | ✅ Fixed on `fix/spec-audit-R5` |
+| 8 | three r184 deprecations: `THREE.Clock`, `PCFSoftShadowMap` | ✅ Fixed on `fix/spec-audit-R5` |
+| 9 | **Loot Tables** listed in PROD_DESC but in no phase card | ⚠️ Open — see below |
+| 10 | Plan §3.3 status table stale (showed R4a "Next Up") | ✅ Fixed in this repo |
+
+**#9 — Loot Tables.** PROD_DESC lists "Loot Tables — randomized loot generation, drag results to player inventories" in the DM feature set, but no research phase card (R0–R8) ever carried the task, and there is no inventory model anywhere in the codebase to drop loot into. Recommendation: **cut it from the Research Version** and carry it to the production Godot track, since it depends on a full inventory system that Research was never scoped to build. Alternative if it must ship in Research: it becomes an R5E add-on (roll on a table → post results to chat) with no inventory drag. **Bilal's call.**
+
+Art/audio absence (no GLBs, no audio files, both subsystems no-op) is a known, deliberate state and is not counted above. The R1 gate ("does the room say D&D basement?") and R2 gate ("does Peek make you say whoa?") both remain unmet at the current art level for that reason.
 
 ---
 

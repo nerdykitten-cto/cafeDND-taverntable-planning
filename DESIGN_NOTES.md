@@ -142,4 +142,25 @@ Browsers block a secure (HTTPS) page from opening plain `ws://` connections to n
 
 ---
 
+## DN-005 · Mid-Session Join — Open Decision
+
+**Logged:** 2026-08-17 (spec audit)
+**Roadmap target:** R5C (Research)
+**Status:** ⚠️ OPEN — needs Bilal's call before R5C is implemented
+
+### What
+Today, once a room moves to `phase: 'active'`, only a **known name** can enter: `joinRoom()` matches an existing player entry (reconnect / nav-race) or the stored `dmName`, and rejects everyone else with *"Room not found or already in progress."* (`server/session.ts`, active-phase branch). A player who was not accepted before **Start Session** cannot get in at all — the DM must close the lobby and restart to add them.
+
+### Why it matters
+PROD_DESC describes joining as "enter the code and wait for DM approval" with no timing caveat, and test sessions are exactly where a tester shows up ten minutes late. The current behaviour is a deliberate simplification, not a bug — but it is undocumented and it will bite during R5C tester waves.
+
+### The three options
+1. **Keep as-is** — document the limitation in the R5C tester README ("everyone must be in the lobby before the DM starts"). Zero code.
+2. **Late join via the same approval gate** — active-phase `room:join` from an unknown name creates a pending request; the DM sees a toast plus an entry in the DM screen's Party section and accepts/rejects. New arrival takes the lowest free seat and receives the full `session:state` sync. Respects the 4-player cap.
+3. **Late join always allowed** (no approval once the build key has been checked) — cheapest, but it removes the DM's second gate, which the R5C access-control model leans on.
+
+**Recommendation:** option 2 — it reuses the pending-request machinery that already exists for the waiting phase, and it keeps the DM gate that R5C's build-key model depends on.
+
+---
+
 *Add new entries below with DN-NNN format. Keep entries short — this is a decision log, not a spec.*
