@@ -1,4 +1,4 @@
-# Tavern Table — UI Dictionary
+# TavernTable — UI Dictionary
 ## Research Version (Three.js / HTML Interface)
 
 *For the UI & Graphics Team · Document Version: 1.0 · May 2026*
@@ -7,7 +7,7 @@
 
 ## Purpose of This Document
 
-This document catalogues every distinct UI surface in the Research Version of Tavern Table. It describes what each screen or panel does, what information it shows, what the user can interact with, and any design notes the team should know.
+This document catalogues every distinct UI surface in the Research Version of TavernTable. It describes what each screen or panel does, what information it shows, what the user can interact with, and any design notes the team should know.
 
 The Research Version renders its 3D environment in Three.js (WebGL). All UI panels are DOM-based HTML/CSS overlaid on top of the Three.js canvas. There is no hybrid canvas-rendered UI — **3D world in canvas, all UI in HTML.**
 
@@ -31,7 +31,7 @@ These are constraints and intentions — not final decisions. Use them as input 
 
 ## Screen Architecture
 
-There are two primary screen layouts in Tavern Table:
+There are two primary screen layouts in TavernTable:
 
 | Screen | Who sees it | When |
 |---|---|---|

@@ -1,4 +1,4 @@
-# Tavern Table — R5 Extension Phases (R5A–R5E)
+# TavernTable — R5 Extension Phases (R5A–R5E)
 
 *Document Version: 1.0 · Created: 2026-07-13 · Owner: Bilal*
 
@@ -145,10 +145,16 @@ A full spec-vs-build pass (static read of every completed phase card plus a live
 | 6 | Lobby did not prefill the name from the saved profile | ✅ Fixed on `fix/spec-audit-R5` |
 | 7 | `favicon.ico` 404 on every page | ✅ Fixed on `fix/spec-audit-R5` |
 | 8 | three r184 deprecations: `THREE.Clock`, `PCFSoftShadowMap` | ✅ Fixed on `fix/spec-audit-R5` |
-| 9 | **Loot Tables** listed in PROD_DESC but in no phase card | ⚠️ Open — see below |
+| 9 | **Loot Tables** listed in PROD_DESC but in no phase card | ✅ Resolved — NOT cut; inventory + loot needs a phase home (see below) |
 | 10 | Plan §3.3 status table stale (showed R4a "Next Up") | ✅ Fixed in this repo |
 
-**#9 — Loot Tables.** PROD_DESC lists "Loot Tables — randomized loot generation, drag results to player inventories" in the DM feature set, but no research phase card (R0–R8) ever carried the task, and there is no inventory model anywhere in the codebase to drop loot into. Recommendation: **cut it from the Research Version** and carry it to the production Godot track, since it depends on a full inventory system that Research was never scoped to build. Alternative if it must ship in Research: it becomes an R5E add-on (roll on a table → post results to chat) with no inventory drag. **Bilal's call.**
+**#9 — Loot Tables. DECIDED 2026-08-17 (Bilal): NOT cut.**
+
+PROD_DESC lists "Loot Tables — randomized loot generation, drag results to player inventories" in the DM feature set, but no research phase card (R0–R8) ever carried the task, and there is no inventory model anywhere in the codebase to drop loot into.
+
+The original audit recommendation was to cut it to the Godot track. **That recommendation is rejected.** The loot manager is an important part of an inventory model that the Research plan simply never scoped. Treat **"inventory model + loot" as one real feature needing a phase home** — not a droppable extra, and not a chat-only consolation version.
+
+Under DN-006 (the web build is the product) this is no longer deferrable to Godot at all: whatever ships here ships to players. Placement is open — it is a candidate for the roadmap phase-card restructure rather than a bolt-on to R5E. Design it with `/game-design-pro` and source item/rarity rules through `/dnd-5e-knowledge` (SRD 5.1 content only in shipped product).
 
 Art/audio absence (no GLBs, no audio files, both subsystems no-op) is a known, deliberate state and is not counted above. The R1 gate ("does the room say D&D basement?") and R2 gate ("does Peek make you say whoa?") both remain unmet at the current art level for that reason.
 
@@ -163,7 +169,7 @@ Art/audio absence (no GLBs, no audio files, both subsystems no-op) is a known, d
 ## Kickoff prompt template (paste into each fresh session)
 
 ```
-We are starting Phase {PHASE_ID} — {PHASE_NAME} for CafeDND / Tavern Table.
+We are starting Phase {PHASE_ID} — {PHASE_NAME} for CafeDND / TavernTable.
 
 Context first: read your memory files, SUMMARY.md (latest sessions),
 cafe-dnd-web/CLAUDE.md, and CafeD&D_TavernTable_PLANS/

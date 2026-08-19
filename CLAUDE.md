@@ -1,123 +1,79 @@
-﻿# CLAUDE.md
+# CLAUDE.md
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ---
 
-## Project State
+## What This Repository Is
 
-This repository is in the **planning stage**. No application code exists yet. The current contents are:
+This is the **planning repository** for **CafeD&D** — the brand — and its first product, **TavernTable**, a 3D virtual tabletop for D&D. It holds strategy, design decisions, roadmap, and UI references. **The application code does NOT live here.**
 
 | Path | What it is |
 |---|---|
-| `CafeD&D_TavernTable_PLANS/DnD_Platform_Development_Plan.md` | Full project strategy, tech spec, 4-dev-lane breakdown |
-| `CafeD&D_TavernTable_PLANS/TavernTable_Phase0_TodoList.md` | Kickoff task list for Research Phase R0 |
+| `CafeD&D_TavernTable_PLANS/DnD_Platform_Development_Plan.md` | Master strategy + tech spec + dev-lane breakdown |
+| `CafeD&D_TavernTable_PLANS/TavernTable_R5_Extension_Phases.md` | **The live phase plan** (R5A–R5E series, standing decisions — binding) |
 | `CafeD&D_TavernTable_PLANS/PROD_DESC.md` | Product description for stakeholders |
-| `CafeD&D_TavernTable_PLANS/PROD_UI_DICT.md` | UI dictionary for design/graphics team |
-| `UI_Design_References/` | V1 wireframe sketches (V1-ReferenceOnly + V1-Viewable Vite app) |
-| `roadmap/` | Standalone static web app for viewing the dev roadmap |
-| `roadmap.html` | Redirect → `roadmap/index.html` |
-| `prototype-01-foundation/` | Empty Godot 4.6 project shell (no scenes, no scripts) |
+| `CafeD&D_TavernTable_PLANS/PROD_UI_DICT.md` | UI dictionary for the design/graphics team |
+| `CafeD&D_TavernTable_PLANS/TavernTable_Phase0_TodoList.md` | Historical — R0 kickoff list (R0 long complete) |
+| `DESIGN_NOTES.md` | **Decision log (DN-001…)** — check here before revisiting any decision |
+| `FOR_DEVELOPERS.md` | Developer onboarding + UI team checklist |
+| `README.md` | DM/player-facing pitch with progress bars |
+| `roadmap/` | Standalone static roadmap viewer (open `roadmap/index.html` directly) |
+| `UI_Design_References/` | V1 wireframes (reference JSX + viewable Vite app + screenshots) |
+
+## Where the Code Lives
+
+The actual product — **not in this repo**:
+
+```
+C:\Users\alibi\Documents\GamrProxRelatedFiles\DevAssets\Projects\CafeDND\Tavern-Table\
+  cafe-dnd-web/     ← the game (Vite + TypeScript + Three.js + Socket.io)
+  tavern-relay/     ← WebSocket relay service (NAT traversal)
+  SUMMARY.md        ← session-by-session build history (read this for code context)
+```
+
+Phases R0–R5 + R5A are **built and merged**. Current status lives in the dev plan §3.3 and `Tavern-Table/SUMMARY.md` — trust those two over any other status table.
 
 ---
 
-## Two-Track Strategy (Critical Context)
+## Brand & Strategy (DN-006 / DN-007 — read before any strategy edit)
 
-All development decisions flow from this:
+- **CafeD&D** is the umbrella brand: a family of D&D tools and games. **TavernTable** is its first product — the game where groups play D&D as DM + Players around a 3D table. Future companion tools (avatar customization, DM campaign builder) will be separate CafeD&D products that link into TavernTable. Spelling: "TavernTable" (one word); "CafeDND" only in filesystem/repo names.
+- **The web build IS the product.** The Three.js/Vite/Socket.io build carries to final public release. The Godot track (G0–G7) is a **contingency only** — it activates only if the web stack hits a blocking technical ceiling. Do not plan work that assumes a Godot handoff.
+- **The feedback gate (70%+ tester preference)** is the go/no-go for *public launch of the web product*, not a Godot unlock.
+- Signature feature: the **Peek mechanic** — camera dives through the table surface into the 3D world below. It is the product's soul; protect it in every design decision.
 
-**Track 1 — Research Version (closed, internal only)**
-- Stack: Vite + TypeScript + Three.js + Socket.io + Rapier.js
-- Primary delivery: hosted website (browser, no install required)
-- Later milestones: Supabase auth/DB (R7, closed testing only), Tauri desktop (R8)
-- Local dev: `npm run dev` (Vite :5173) + `npm run server:dev` (Socket.io :3000), mock auth, local JSON
-- Purpose: validate the CafeDND concept with internal team + invited playtesters
-- Gate: 70%+ of playtesting groups prefer it over their current VTT → unlocks Track 2
+## Design Skills
 
-**Track 2 — Production Version (public, post-gate)**
-- Stack: Godot 4.4+, GDScript/C#, Vulkan Forward+, Jolt Physics, ENet/WebRTC
-- Project shell exists at `prototype-01-foundation/` — not started yet
-- Commercial release on Steam + itch.io
+Two user-level skills exist for design/roadmap work — invoke them:
+- `/dnd-5e-knowledge` — verifiable 5e rules source (page-indexed PHB PDF lookup, SRD-only IP guardrail).
+- `/game-design-pro` — game design method (player fantasy, loops, friction budget, translate-not-transcribe).
 
-The Research version does not run in Godot. The `prototype-01-foundation/` shell is reserved for Track 2.
+Use both when restructuring the roadmap or writing mechanics/design specs.
 
 ---
+
+## Key Standing Decisions (do not revisit without the DN log)
+
+- **DM-as-host networking** — the game host runs on the DM's machine/LAN/rented server; `tavern-relay` is the internet path (DN-004: from the hosted HTTPS site, relay is the *only* non-localhost path).
+- **Server-authoritative dice** — physics animation lands on the server's `crypto.randomInt` result. Override requires Bilal's sign-off.
+- **Supabase at R7 only**; local mock auth + JSON persistence through R6. **Tauri at R8 only.**
+- **`shared/types.ts` is the socket contract** — all event names/payloads live there, imported by client and server, no hardcoded strings.
+- **4 dev lanes** (A scene / B systems / C multiplayer / D UI) with per-lane CLAUDE.md scope files in the code repo.
+- **SRD 5.1 content only** in the shipped product — the owned PHB scan is internal reference material, never product content.
+- **DN-005 (mid-session join) is OPEN** — needs Bilal's call before R5C.
 
 ## Roadmap Viewer
 
-The `roadmap/` directory is a self-contained static site with no build step.
+`roadmap/` is a self-contained static site, no build step — open `roadmap/index.html` in a browser.
 
-**To view:** open `roadmap/index.html` directly in a browser (double-click or `file://` URL).
+- `roadmap/data.js` — all phase data (`RESEARCH_PHASES`, `GODOT_PHASES`, `ALT_PATHS`)
+- `roadmap/roadmap.js` — hash router + render functions (data-driven; content edits go in `data.js` only)
+- `roadmap/roadmap.css` — light/dark theme via `data-theme` on `<html>`; preference in `localStorage.cafeTheme`
+- Known stale: `data.js` predates the R4a/R4b split and the R5A–R5E series — scheduled for the roadmap restructure (sync when R5E closes, or during the DN-006 restructure).
 
-**Structure:**
-- `roadmap/data.js` — all phase data (`RESEARCH_PHASES`, `GODOT_PHASES`, `ALT_PATHS` arrays)
-- `roadmap/roadmap.js` — hash-based router, render functions, theme toggle
-- `roadmap/roadmap.css` — full light/dark theme via `data-theme` attribute on `<html>`
-- `roadmap/index.html` — minimal shell; loads `data.js` then `roadmap.js` (order matters)
+## Conventions
 
-**Navigation:** `#phase-R0` through `#phase-R8` (research), `#phase-G0` through `#phase-G7` (Godot). Hash routing uses `history.pushState`. Theme preference persists in `localStorage` under key `cafeTheme`.
-
-**To add or update a phase:** edit the relevant array in `data.js` only. The render functions in `roadmap.js` are data-driven and require no changes for content updates.
-
----
-
-## Godot Project (`prototype-01-foundation/`)
-
-Configured but empty. Key settings from `project.godot`:
-
-- **Engine:** Godot 4.6
-- **Renderer:** Forward Plus (Vulkan)
-- **Physics:** Jolt Physics (3D)
-- **Rendering driver (Windows):** D3D12
-- **C# assembly name:** `Prototype01_Foundation` — C# scripting is enabled alongside GDScript
-
-To open: launch Godot 4.6 editor → Import → select `prototype-01-foundation/project.godot`.
-
-There are no scenes, scripts, or assets inside yet. The next work here begins at Phase G0, after the Research feedback gate passes.
-
----
-
-## Research Version — Not Scaffolded Yet
-
-`CafeD&D_TavernTable_PLANS/TavernTable_Phase0_TodoList.md` defines Phase R0 tasks. When the web project is initialized, it will live in a new directory (e.g., `cafe-dnd-web/`) with this structure:
-
-```
-src/
-  scenes/       # [Lane A] Three.js scene classes
-  systems/      # [Lane A+B] Game logic (peek, fog, initiative)
-  physics/      # [Lane B] Rapier.js wrapper
-  ui/           # [Lane D] DOM-based UI panels
-  networking/   # [Lane C] Socket.io client + event helpers
-  audio/        # [Lane D] Howler.js wrapper
-  data/         # [Lane B] TypeScript data models (character, campaign)
-  utils/
-server/         # [Lane C] Node.js + Socket.io multiplayer server
-shared/
-  types.ts      # ALL socket event names + payload types (shared by client + server)
-src-tauri/      # Tauri 2.0 Rust backend (R8 only -- do not create at R0)
-```
-
-Expected scripts once scaffolded:
-```
-npm run dev          # Vite dev server (browser) -- primary delivery
-npm run server:dev   # Socket.io multiplayer server (local)
-npm run dev:all      # Both above via concurrently
-npm run build        # Vite production build
-npm run lint         # ESLint
-npm run type-check   # tsc --noEmit
-# R8 only (added later):
-npm run tauri:dev    # Tauri native window with live reload
-npm run tauri:build  # Native binary (.msi / .dmg / .AppImage)
-```
-
----
-
-## Key Design Decisions (Do Not Revisit Without Context)
-
-- **Website-first** — primary research delivery is a hosted browser URL (no install). Tauri desktop is added at R8 after the site is stable.
-- **Supabase deferred to R7** — Supabase is added only when the product enters closed playtesting. R0–R6 use local mock auth and local JSON files.
-- **shared/types.ts is the contract** — all socket event names and payload shapes live here. Both client and server import from it. No hardcoded strings.
-- **4 developer lanes** — 3D/Scene (A), Game Systems (B), Multiplayer/Backend (C), UI/Interface (D). Each lane has its own CLAUDE.md with scope rules.
-- **Socket.io for research, Godot MultiplayerAPI for production** — research needs simplicity; production needs authority model and Godot integration.
-- **WebGLRenderTarget for Peek** — the table surface texture is a live render of a second Three.js scene. This is how the "peek through the table" effect works in the research version.
-- **Tauri over Electron** — chosen for ~4MB binary size vs ~100MB, better security model, same web codebase. Added at R8.
-- **Godot C# enabled** — C# is available for performance-critical modules; GDScript is primary.
+- New design decisions → `DESIGN_NOTES.md` as `DN-NNN` entries (short; it's a log, not a spec).
+- Phase status updates → dev plan §3.3 **and** `Tavern-Table/SUMMARY.md`; other status tables in README/FOR_DEVELOPERS are derivative and historically drift — fix them when touched.
+- Planning-repo pushes go to `origin` (`cafeDND-taverntable-planning`); code-repo git rules live in `Tavern-Table/cafe-dnd-web/CLAUDE.md` (approval-gated merges, never push `origin/main` unasked).

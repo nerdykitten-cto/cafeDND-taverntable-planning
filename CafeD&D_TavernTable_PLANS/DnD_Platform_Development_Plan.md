@@ -1,53 +1,52 @@
-# Tavern Table / CafeDND — Development Plan & Roadmap
+# TavernTable — Development Plan & Roadmap
 
-*Document Version: 4.2 · Last Updated: June 2026*
+*A CafeD&D product · Document Version: 5.0 · Last Updated: 2026-08-18 (DN-006/DN-007 strategy restructure)*
 
 ---
 
 ## 1. Vision Statement
 
-**Tavern Table** (internal codename: **CafeDND**) is a 3D virtual tabletop platform that recreates the authentic feeling of sitting down at a Dungeon Master's table. Players see their customizable avatars seated around a physical table in a richly detailed 3D environment. The table itself is magical: lean in and "peek" through its surface to explore the living landscape of the campaign world below.
+**TavernTable** is the first product of the **CafeD&D** brand — a 3D virtual tabletop platform that recreates the authentic feeling of sitting down at a Dungeon Master's table. (CafeD&D is the umbrella for a family of D&D tools; future companion products — avatar customization, a DM campaign builder — will link into TavernTable rather than bloat it. See DN-007.) Players see their customizable avatars seated around a physical table in a richly detailed 3D environment. The table itself is magical: lean in and "peek" through its surface to explore the living landscape of the campaign world below.
 
 The DM commands a powerful suite of encounter, puzzle, and narrative tools on a dedicated screen, while players interact only with what a real player would have — their character sheet, dice, and the shared table view.
 
 ---
 
-## 2. Two-Track Development Strategy
+## 2. Development Strategy — Web Build Is the Product (DN-006)
 
-The project is developed across two sequential tracks. **Track 1 (Research) must complete and pass a feedback gate before Track 2 (Production) begins.**
+> **Strategy change (2026-08-18, DN-006):** the former "Track 1 Research → Track 2 Godot Production" model is retired. The web build is no longer a validation vehicle — **it is the product**, carried through to final public release. The Godot track survives only as a documented contingency.
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│  TRACK 1 — RESEARCH VERSION                          ~6 months  │
+│  THE PRODUCT — TAVERNTABLE (WEB)                                │
 │  Stack:  Three.js · Vite · TypeScript · Socket.io               │
 │  Primary: Hosted website (browser, any device, no install)      │
-│  Later:  Native desktop wrapper via Tauri 2.0 (Rust)            │
-│  Auth/DB: Local mock → Supabase (closed testing phase only)     │
+│  Native: Tauri 2.0 desktop wrapper (R8)                         │
+│  Auth/DB: Local mock → Supabase (R7+)                           │
+│  Networking: DM-as-host + tavern-relay (DN-004)                 │
 ├─────────────────────────────────────────────────────────────────┤
-│                    FEEDBACK GATE                                  │
-│  Threshold: 70%+ of playtest groups prefer CafeDND over their   │
-│  current VTT. If gate passes → unlock Track 2.                  │
+│                    FEEDBACK GATE (repurposed)                   │
+│  Threshold: 70%+ of playtest groups prefer TavernTable over     │
+│  their current VTT. Gate passes → GO for public launch.         │
 ├─────────────────────────────────────────────────────────────────┤
-│  TRACK 2 — PRODUCTION VERSION                       ~19 months  │
-│  Stack:  Godot 4.4+ · GDScript / C# · Vulkan / Forward+         │
-│  Physics: Jolt Physics · Networking: ENet + WebRTC              │
-│  Access:  Public commercial release — Steam + itch.io           │
-│  Output:  Windows, macOS, Linux desktop builds (+ web eval)     │
+│  CONTINGENCY — GODOT REBUILD (G0–G7, dormant)                   │
+│  Activates ONLY if the web stack hits a demonstrable technical  │
+│  ceiling that blocks the product vision and cannot be           │
+│  engineered around in the browser/Tauri stack.                  │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
-### Why Two Tracks?
+### Why This Strategy
 
-The Peek mechanic and 3D social table are unproven UX concepts. Before committing ~19 months and a full Godot architecture, the research version validates the core thesis with real users at a fraction of the cost.
-
-- **Website-first** — The primary research delivery is a hosted browser app. Zero install for testers, instant sharing, widest reach.
-- **Tauri desktop** — Added in a later milestone (R7+) once the website is stable, so the team can also provide a downloadable native experience.
-- **Supabase deferred** — Auth and cloud persistence are integrated only when the product moves to closed playtesting (R7). All earlier phases use a local mock server.
-- **Godot** is the right engine for the final product: Vulkan rendering, built-in multiplayer, strong UI system. Research findings directly inform Godot architecture decisions.
+- **The web stack already delivers the fantasy.** R0–R5A shipped Peek, seated first-person presence, physics dice, and DM-as-host multiplayer — running in a browser today. The "unproven UX" risk the two-track model hedged against is resolved.
+- **Website-first wins distribution** — zero install, instant sharing, widest reach. Tauri (R8) covers the native-desktop story.
+- **A Godot rewrite (~19 months) duplicates a working product** for speculative quality gains. That cost is only justified by a hard technical ceiling, not by preference.
+- **Supabase deferred** — auth and cloud persistence arrive with closed playtesting (R7). Earlier phases use local mock auth + JSON.
+- **Game design foundation:** roadmap and mechanics work draws on the `dnd-5e-knowledge` skill (verifiable 5e rules, SRD-only shipping guardrail) and the `game-design-pro` skill (translate-not-transcribe design method).
 
 ---
 
-## 3. Track 1 — Research Version
+## 3. The Product — Web Build (phases R0–R8; "Research Version" naming retained in phase IDs)
 
 ### 3.1 Tech Stack
 
@@ -97,7 +96,7 @@ PHASE R8: TAURI DESKTOP (LATER MILESTONE)
   Optional for testers who prefer native
 ```
 
-### 3.3 Research Version Phases
+### 3.3 Product Phases
 
 | Phase | Title | Timeline | Key Deliverable | Status |
 |---|---|---|---|---|
@@ -504,11 +503,11 @@ Dev D               [DM Screen    ]│[Player Screen      ]│[All Panels + Audi
 
 ---
 
-## 6. Track 2 — Production Version (Godot 4.x)
+## 6. Contingency Track — Godot Rebuild (DORMANT, DN-006)
 
-*(Unchanged from prior plan — begins only if feedback gate passes.)*
+*(Retained as documentation only. This track no longer follows the feedback gate — it activates solely if the web stack hits a blocking technical ceiling: rendering scale, physics limits, or platform requirements that cannot be engineered around in the browser/Tauri stack. No work is planned here.)*
 
-### 6.1 Why Godot for Production
+### 6.1 Why Godot Would Be the Contingency Engine
 
 | Criteria | Godot 4.x | Notes |
 |---|---|---|
@@ -520,7 +519,7 @@ Dev D               [DM Screen    ]│[Player Screen      ]│[All Panels + Audi
 | Physics | Jolt Physics (Godot 4.3+) | Better for dice simulation |
 | Performance | Native desktop, not browser-constrained | Required for Peek 2.0 quality |
 
-### 6.2 Production Phases
+### 6.2 Contingency Phases (dormant)
 
 | Phase | Title | Timeline | Key Deliverable |
 |---|---|---|---|
@@ -533,15 +532,9 @@ Dev D               [DM Screen    ]│[Player Screen      ]│[All Panels + Audi
 | G6 | Polish, Platform & Launch | Months 17–19 | Steam Early Access |
 | G7 | Post-Launch & Expansion | Month 20+ | Mobile, modding, marketplace, VR, AI |
 
-### 6.3 Research → Godot Handoff
+### 6.3 Contingency Trigger & Handoff
 
-Before G0 begins, the research version produces a **"Godot Architecture Learnings" document** capturing:
-
-- Which Three.js scene structure translated well vs what needed redesign
-- Network sync patterns that worked (carry to Godot MultiplayerAPI)
-- UI patterns playtests confirmed vs rejected
-- Performance bottlenecks in the browser (inform LOD strategy in Godot)
-- Player mental models — how players actually use the Peek mechanic
+The "Godot Architecture Learnings" handoff document is **cancelled** as a standing deliverable (DN-006) — its purpose folds into the ongoing `DESIGN_NOTES.md` log. If the contingency ever triggers, the activation decision must name the specific technical ceiling, the engineering attempts that failed to clear it in the web stack, and carry the DN log + `SUMMARY.md` as the de-facto learnings document.
 
 ---
 
@@ -601,7 +594,7 @@ Campaign Data
 | RAM | 4 GB | 8 GB recommended |
 | Network | 5 Mbps up/down | For multiplayer sessions |
 
-### 9.2 Production Version — Desktop Requirements
+### 9.2 Godot Contingency — Desktop Requirements (dormant)
 
 | Component | Minimum | Recommended |
 |---|---|---|
@@ -615,7 +608,7 @@ Campaign Data
 ### 9.3 Target Performance
 
 - **Research version:** 60fps in Chrome on GTX 1060 equivalent; 30fps on integrated graphics
-- **Production version:** 60fps table view, 30fps minimum in Peek mode with full terrain
+- **Godot contingency:** 60fps table view, 30fps minimum in Peek mode with full terrain
 
 ---
 
@@ -623,7 +616,7 @@ Campaign Data
 
 | Risk | Likelihood | Impact | Mitigation |
 |---|---|---|---|
-| Concept doesn't resonate — Peek falls flat | Medium | Critical | Research version validates before Godot investment |
+| Concept doesn't resonate — Peek falls flat | Medium | Critical | Early phases validated cheaply; DN-006: risk resolved — Peek proven in R2–R5A |
 | Three.js performance ceiling — Peek too heavy in browser | Medium | Medium | LOD system; fallback to 2D map if needed |
 | Networking complexity — desyncs, state corruption | Medium | High | Socket.io for research; typed event contracts from day 1 |
 | Scope creep — "just one more tool" | High | High | Phase gates. MVP first. Developer lanes enforce focus. |
@@ -647,7 +640,7 @@ Campaign Data
 
 **Minimum viable team: 2 developers doubling up on lanes.** Claude can assist with ~60% of the web code per developer. Each dev lane has its own AI instructions in its CLAUDE.md.
 
-### Production Phase (Track 2)
+### Godot Contingency Team (dormant — only if DN-006 trigger fires)
 
 | Role | Count | Focus |
 |---|---|---|
@@ -666,7 +659,7 @@ Campaign Data
 
 *Research version is closed — no monetization.*
 
-**Production version (post-Early Access):**
+**Public release (web product, post-launch):**
 
 - **Premium Purchase** — One-time buy on Steam ($20–30). DM buys the full version; players join free or buy a cheaper "Player Edition."
 - **Cosmetic DLC** — Room themes, avatar outfits, dice skins. Purely cosmetic, never gameplay-gating.
@@ -688,7 +681,7 @@ Campaign Data
 | Groups preferring CafeDND over current VTT | 70%+ (gate threshold) |
 | Critical bugs at gate decision | 0 |
 
-### Production Phase (Year 1 post-launch)
+### Public Launch (Year 1 post-launch, web product)
 
 | Metric | Target |
 |---|---|
@@ -703,13 +696,11 @@ Campaign Data
 
 ## 14. Summary
 
-**CafeDND / Tavern Table** is built in two phases: a research version to validate the concept, then a production version to commercialize it.
+**TavernTable** (a **CafeD&D** product) is a 3D virtual tabletop built on the web stack — Three.js + Vite + TypeScript + Socket.io — and that build **is the final product** (DN-006). It ships as a **website** (no install, instantly shareable), gains a Tauri native wrapper at R8, and integrates Supabase at R7 when closed playtesting begins. The Godot track exists only as a dormant contingency against a hard technical ceiling.
 
-The research version (Three.js + Vite + Socket.io) ships first as a **website** — no install required for testers, instantly shareable. A Tauri desktop app is added as a later milestone (R8) once the site is stable. Supabase is integrated only at R7 when the product enters formal closed playtesting.
+Four developer lanes (3D, Game Systems, Multiplayer, UI) work in parallel with typed interface contracts keeping them from stepping on each other. Each lane ships with AI coding instructions in its CLAUDE.md so agentic tools stay in-scope. Design and roadmap work is grounded by the `dnd-5e-knowledge` and `game-design-pro` skills.
 
-Four developer lanes (3D, Game Systems, Multiplayer, UI) work in parallel with typed interface contracts keeping them from stepping on each other. Each lane ships with AI coding instructions in its CLAUDE.md so agentic tools stay in-scope.
-
-If the feedback gate passes, the Godot production version begins — informed by months of real usage data, with far fewer architectural unknowns.
+If the feedback gate passes (70%+ of tester groups prefer TavernTable), the web product goes to public launch — and CafeD&D grows around it with companion tools (avatar customization, DM campaign builder) that link into the table (DN-007).
 
 The Peek mechanic is the product's soul. Everything else is tooling around it.
 
@@ -717,8 +708,8 @@ The Peek mechanic is the product's soul. Everything else is tooling around it.
 
 ---
 
-*Document Version: 4.1*
-*Last Updated: May 2026 — R3 Complete*
-*Research Stack: Three.js + Vite + TypeScript + Socket.io*
-*Production Stack: Godot 4.x*
-*Codename: Tavern Table / CafeDND*
+*Document Version: 5.0*
+*Last Updated: 2026-08-18 — DN-006/DN-007 strategy restructure (R5A complete, R5B next)*
+*Product Stack: Three.js + Vite + TypeScript + Socket.io (+ Tauri R8, Supabase R7)*
+*Contingency Stack: Godot 4.x (dormant)*
+*Brand: CafeD&D · Product: TavernTable*

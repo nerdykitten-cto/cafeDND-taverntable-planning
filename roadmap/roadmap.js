@@ -42,7 +42,7 @@ function buildLegend() {
     { color: '#8bc34a', label: 'Website Launch' },
     { color: '#ffc107', label: 'Supabase + Testing' },
     { color: '#78909c', label: 'Tauri Desktop' },
-    { color: '#c9a227', label: 'Godot Track' },
+    { color: '#c9a227', label: 'Godot Contingency' },
   ];
   el('legend').innerHTML = items.map(i =>
     `<div class="legend-item">

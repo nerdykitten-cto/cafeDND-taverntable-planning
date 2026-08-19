@@ -163,4 +163,51 @@ PROD_DESC describes joining as "enter the code and wait for DM approval" with no
 
 ---
 
+
+
+## DN-006 · Web Build Is the Product (Godot Demoted to Contingency)
+
+**Logged:** 2026-08-18
+**Roadmap target:** All phases (strategy-level)
+**Status:** Decided — restructure in progress
+
+### What
+The Web-Research build (`Projects/CafeDND/Tavern-Table`, Three.js + Vite + Socket.io) is no longer a throwaway validation vehicle. It **is the product** and will carry through to final public release. The Godot production track (G0–G7) is demoted from "Track 2, unlocked by the feedback gate" to a **contingency path**: it activates only if the web stack hits a technical limitation that demonstrably blocks the product vision (rendering ceiling, physics scale, platform requirements) and that cannot be engineered around in the browser/Tauri stack.
+
+### Why
+- R0–R5A proved the web stack can deliver the core fantasy: Peek, seated presence, physics dice, DM-as-host networking — all running today in the browser.
+- A full Godot rewrite (~19 months, new team shape) duplicates everything for speculative quality gains, while the web build reaches players with zero install on day one.
+- Tauri (R8) already provides the native-desktop story when needed.
+
+### Consequences
+- The **feedback gate changes meaning**: 70%+ tester preference is no longer the "unlock Godot" trigger — it is the **go/no-go for public launch of the web product**.
+- Post-R8 phases will be defined for the web product (polish, content, commercialization) instead of handing off to G0. Roadmap restructure to follow using the `dnd-5e-knowledge` and `game-design-pro` skills.
+- The G0–G7 phase definitions are retained in the plan/roadmap as the documented contingency, clearly labeled.
+- "Godot Architecture Learnings" handoff doc is cancelled as a deliverable; its purpose (capture what works) folds into ongoing design notes.
+
+---
+
+## DN-007 · Brand Architecture — CafeD&D ⊃ TavernTable
+
+**Logged:** 2026-08-18
+**Roadmap target:** All docs; product UI at next branding pass
+**Status:** Decided
+
+### What
+- **CafeD&D** is the **brand/umbrella** — a family of D&D-related tools and games. (Official spelling "CafeD&D"; "CafeDND" remains the filesystem/repo-safe form so folder names don't break.)
+- **TavernTable** is the first product under the brand: the game where people play D&D as DM and Players at the 3D table.
+- Future CafeD&D products link into TavernTable rather than bloating it, e.g.:
+  - **Avatar customization tool** — Players/DMs customize both their table-room avatar and the character they roleplay.
+  - **DM campaign builder** — standalone tool for authoring campaigns (maps, encounters, NPCs, notes) that load into TavernTable sessions.
+
+### Why
+Keeps TavernTable focused on being *the table*, while giving the heavy creation/customization workflows their own homes. One brand, multiple sharp tools, shared accounts/data later (Supabase era).
+
+### Consequences
+- Docs should say "TavernTable (a CafeD&D product)" not "Tavern Table / CafeDND codename".
+- Features that are really companion-tool material (full avatar creator, deep campaign authoring) get scoped OUT of TavernTable phases and parked under the brand's future tool list.
+- "Tavern Table" (two words) is deprecated spelling → **TavernTable**.
+
+---
+
 *Add new entries below with DN-NNN format. Keep entries short — this is a decision log, not a spec.*

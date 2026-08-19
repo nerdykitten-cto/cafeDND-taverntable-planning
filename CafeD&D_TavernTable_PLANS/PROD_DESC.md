@@ -1,12 +1,18 @@
-# Tavern Table — Product Description
+# TavernTable — Product Description
 
-*Codename: CafeDND · Document Version: 1.0 · May 2026*
+*A CafeD&D product · Document Version: 2.0 · 2026-08-18 (DN-006/DN-007 restructure)*
 
 ---
 
-## What Is Tavern Table?
+## The Brand: CafeD&D
 
-Tavern Table is a 3D virtual tabletop (VTT) platform for playing Dungeons & Dragons and other tabletop RPGs online. Unlike existing VTT tools that present a flat, bird's-eye grid on a screen, Tavern Table places every player inside a richly detailed 3D room — seated around a real physical table with their own customizable avatar, surrounded by candles, books, and the ambient sounds of the setting.
+**CafeD&D** is a family of tools and games for playing Dungeons & Dragons online. **TavernTable is its first and flagship product** — the game itself, where a group sits down as DM and Players. Future CafeD&D products will link into TavernTable rather than expand it: an avatar customization tool (table-room avatar + the roleplayed character), and a DM campaign builder for authoring maps, encounters, and NPCs that load straight into a TavernTable session.
+
+---
+
+## What Is TavernTable?
+
+TavernTable is a 3D virtual tabletop (VTT) platform for playing Dungeons & Dragons and other tabletop RPGs online. Unlike existing VTT tools that present a flat, bird's-eye grid on a screen, TavernTable places every player inside a richly detailed 3D room — seated around a real physical table with their own customizable avatar, surrounded by candles, books, and the ambient sounds of the setting.
 
 The table itself is the product's soul. Its surface is not just decoration: it acts as a portal into the campaign world below.
 
@@ -24,7 +30,7 @@ The top of the table renders a live tactical map — a top-down view of the curr
 
 ### The Peek Mechanic
 
-This is what separates Tavern Table from every other VTT.
+This is what separates TavernTable from every other VTT.
 
 A player or DM activates **Peek** — and the camera smoothly animates downward, through the surface of the table, emerging inside a fully realized 3D landscape beneath it. Rolling hills, forest canopies, dungeon corridors, or the spires of a city appear below you. Fog of war in this view manifests as actual mist, shrouding unexplored territory in mystery.
 
@@ -40,13 +46,13 @@ This mechanic makes the campaign world feel inhabited and real in a way no 2D ma
 - **Players** who want to feel present at the table with their friends, not staring at a flat grid.
 - **Groups** who play online regularly and are willing to try something better than Roll20 or Foundry if it genuinely improves the experience.
 
-The target player has probably used Roll20, Foundry VTT, or Owlbear Rodeo. They know the limitations. Tavern Table is the product that addresses the core complaint: *it doesn't feel like you're actually there.*
+The target player has probably used Roll20, Foundry VTT, or Owlbear Rodeo. They know the limitations. TavernTable is the product that addresses the core complaint: *it doesn't feel like you're actually there.*
 
 ---
 
 ## What Makes It Different
 
-| Feature | Roll20 / Foundry | Tavern Table |
+| Feature | Roll20 / Foundry | TavernTable |
 |---|---|---|
 | Environment | Browser grid on flat canvas | Fully 3D room with atmosphere |
 | Map | 2D image with tokens | 3D live-rendered tactical map |
@@ -57,31 +63,22 @@ The target player has probably used Roll20, Foundry VTT, or Owlbear Rodeo. They 
 
 ---
 
-## The Two Platforms
+## The Platform (DN-006)
 
-### Research Version (Current Build Target)
-
-The first version of Tavern Table is built with web technology and delivered as both:
+TavernTable is built with web technology, and **that build is the final product** — carried from today's closed testing all the way to public release. It is delivered as:
 
 - A **browser application** — accessible at any URL, no installation required
-- A **native desktop application** via Tauri — lightweight (~4MB), native performance, local file I/O
+- A **native desktop application** via Tauri (R8) — lightweight (~4MB), native performance, local file I/O
 
-This version is closed to the public. It will be tested by invited D&D groups to validate the concept before a full production version is committed to.
+The build is currently closed to the public and tested by invited D&D groups. The feedback threshold (70%+ of test groups prefer it over their current tool) is the **go/no-go gate for public launch**.
 
-**Technology:** Vite + TypeScript + Three.js + Socket.io + `tavern-relay` (custom WS relay) + Tauri 2.0 (Rust, R8) + Supabase (R7 only)
+**Technology:** Vite + TypeScript + Three.js + Socket.io + `tavern-relay` (custom WS relay) + Tauri 2.0 (Rust, R8) + Supabase (R7+)
 
-### Production Version (Post-Validation)
-
-If the research version passes its feedback threshold (70%+ of test groups prefer it over their current tool), a full production version will be built in the Godot game engine. This version targets:
-
-- Commercial release on **Steam** and **itch.io**
-- Windows, macOS, and Linux desktop builds
-- Vulkan rendering for dramatically better visual quality
-- Built-in multiplayer (no third-party socket server)
+A Godot-engine rebuild exists only as a documented contingency, activated solely if the web stack hits a technical ceiling that blocks the product vision.
 
 ---
 
-## Core Feature Set (Research Version)
+## Core Feature Set (TavernTable)
 
 ### For the DM
 
@@ -114,7 +111,7 @@ If the research version passes its feedback threshold (70%+ of test groups prefe
 
 ## The Emotional Goal
 
-When someone who has never seen Tavern Table watches the Peek mechanic for the first time, they should say *"whoa."*
+When someone who has never seen TavernTable watches the Peek mechanic for the first time, they should say *"whoa."*
 
 When a D&D group finishes their first session on it, they should be reluctant to go back to their old tool.
 
@@ -122,7 +119,7 @@ That is the bar. Everything in the product is built toward that reaction.
 
 ---
 
-*Document Version: 1.0*
-*Last Updated: May 2026*
-*Codename: Tavern Table / CafeDND*
-*Stage: Research Version — Pre-Build*
+*Document Version: 2.0*
+*Last Updated: 2026-08-18*
+*Brand: CafeD&D · Product: TavernTable*
+*Stage: Closed build — R5A complete, R5B next*

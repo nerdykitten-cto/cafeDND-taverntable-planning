@@ -1,6 +1,8 @@
-# 🎲 Tavern Table — by CafeD&D
+# 🎲 TavernTable — a CafeD&D game
 
 > *A new way to play Dungeons & Dragons online. Built for the people sitting around the table.*
+
+**CafeD&D** is a family of D&D tools and games. **TavernTable** is the game at its heart — where your group actually sits and plays. Companion tools (avatar customization for your table self *and* your character, a DM campaign builder) are planned as separate CafeD&D products that plug into TavernTable.
 
 ---
 
@@ -8,9 +10,9 @@
 
 ---
 
-## What Is Tavern Table?
+## What Is TavernTable?
 
-Tavern Table is an online tool for playing Dungeons & Dragons with your group — but unlike anything you've probably used before.
+TavernTable is an online tool for playing Dungeons & Dragons with your group — but unlike anything you've probably used before.
 
 Instead of staring at a flat map on a screen, **you sit inside a 3D room**. Your character has a seat at the table. The other players are across from you. The Dungeon Master is at the head. It feels less like using software and more like actually being in the room together.
 
@@ -20,7 +22,7 @@ The table itself is where the magic happens. Its surface shows the live map of w
 
 ## The Signature Feature — The Peek
 
-Here's what makes Tavern Table different from every other online VTT (virtual tabletop) out there.
+Here's what makes TavernTable different from every other online VTT (virtual tabletop) out there.
 
 Press **Peek** — and the camera smoothly dives *through* the surface of the table, emerging inside a fully realised 3D world below. Rolling terrain, dungeon corridors, forest paths. Fog of war appears as actual mist shrouding unexplored land.
 
@@ -28,7 +30,7 @@ You are *inside* the world.
 
 Press Peek again and you rise back up to your seat at the table, ready to plan your next move.
 
-No other tool does this. This is what Tavern Table is built around.
+No other tool does this. This is what TavernTable is built around.
 
 ---
 
@@ -73,9 +75,9 @@ No other tool does this. This is what Tavern Table is built around.
 
 ## Current Build Progress
 
-This is the **Research Version** — a closed, invite-only build being tested by real D&D groups before a full commercial release.
+This is a **closed, invite-only build** being tested by real D&D groups on the road to public release — and this build is the game itself, not a prototype for a later one.
 
-> Progress is shown across the nine development stages of the Research Version.
+> Progress is shown across the nine development stages.
 
 ---
 
@@ -106,23 +108,24 @@ This is the **Research Version** — a closed, invite-only build being tested by
 ### Stage 5 — Core Game Systems
 *Dice physics, character sheets, D&D 5e combat rules, initiative.*
 ```
-░░░░░░░░░░    0%  🔨 Next Up
+██████████  100%  ✅ Complete
 ```
 
 ### Stage 6 — DM & Player Interfaces
-*The actual panels and tools DMs and players use during a session.*
+*The actual panels and tools DMs and players use during a session. Includes the seats-and-avatars update: you now sit in a chair and see everyone else seated around you.*
 ```
-░░░░░░░░░░    0%  ⬜ Not Yet Started
+████████░░   80%  🔨 In Progress
 ```
+> Currently in a polish series (R5A–R5E): seats & avatars are done; visible tumbling physics dice, tester distribution, chat/dice quality-of-life, and the full DM toolset are up next.
 
 ### Stage 7 — Website & Quality Pass
 *Hosted at a real URL. Performance tuned. Ready for outside testers.*
 ```
-░░░░░░░░░░    0%  ⬜ Not Yet Started
+░░░░░░░░░░    0%  ⏸ Queued (after the polish series)
 ```
 
 ### Stage 8 — Closed Playtesting with Real Groups
-*Invite real D&D groups. Collect feedback. Go / No-Go decision for full production.*
+*Invite real D&D groups. Collect feedback. Go / No-Go decision for public launch.*
 ```
 ░░░░░░░░░░    0%  ⬜ Not Yet Started
 ```
@@ -135,15 +138,15 @@ This is the **Research Version** — a closed, invite-only build being tested by
 
 ---
 
-## After the Research Version
+## The Road to Release
 
-If the research version passes its feedback threshold — meaning **70% or more of test groups prefer it over their current tool** — a full production version will be built.
+This build **is** the game — there is no separate "real version" coming later. When testing shows that **70% or more of test groups prefer TavernTable over their current tool**, it goes to public launch.
 
-That version targets:
-- A commercial release on **Steam** and **itch.io**
+The launch version targets:
+- Browser play at a public URL, plus a lightweight native desktop app
 - Windows, Mac, and Linux support
-- Dramatically improved visuals using Vulkan rendering
-- Expanded room environments, more 3D character models, and a full asset library
+- Expanded room environments, real 3D character models, and a full asset library
+- The growing CafeD&D family of companion tools around it
 
 ---
 
@@ -151,10 +154,10 @@ That version targets:
 
 When someone watches the Peek for the first time, they should say *"whoa."*
 
-When a group finishes their first session on Tavern Table, they should be reluctant to go back to their old tool.
+When a group finishes their first session on TavernTable, they should be reluctant to go back to their old tool.
 
 Everything being built is in service of that reaction.
 
 ---
 
-*Document Version: 2.1 · Last Updated: May 2026 · Stage: Research Version — R3 Complete, R4 Starting*
+*Document Version: 3.0 · Last Updated: 2026-08-18 · Stage: Closed build — Stage 6 polish series (R5B next)*

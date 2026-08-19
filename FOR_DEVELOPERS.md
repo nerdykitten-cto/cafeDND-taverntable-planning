@@ -1,4 +1,4 @@
-# FOR_DEVELOPERS.md — Tavern Table / CafeD&D
+# FOR_DEVELOPERS.md — TavernTable / CafeD&D
 
 > This document is for developers and technical contributors. If you're a DM or player, start with [`README.md`](./README.md) instead.
 
@@ -6,11 +6,9 @@
 
 ## Project Overview
 
-**Tavern Table** (codename: CafeDND) is a 3D virtual tabletop (VTT) for D&D online.
+**TavernTable** (a **CafeD&D** product — DN-007) is a 3D virtual tabletop (VTT) for D&D online. CafeD&D is the umbrella brand; companion tools (avatar customization, DM campaign builder) will ship as separate products that link into TavernTable.
 
-**Two-track strategy:**
-- **Track 1 — Research Version** (Three.js + Vite + Socket.io): validates the concept in-browser; no install required. Closed / invite-only.
-- **Track 2 — Production Version** (Godot 4.x + Vulkan): unlocked only after the R7 playtesting gate passes.
+**Strategy (DN-006):** the web build (Three.js + Vite + Socket.io) **is the product** and carries to final public release. Currently closed / invite-only; the R7 feedback gate (70%+ tester preference) is the go/no-go for *public launch*. The Godot track (G0–G7) is a dormant contingency, activated only by a blocking technical ceiling in the web stack.
 
 ---
 
@@ -18,12 +16,12 @@
 
 | Path | Purpose |
 |------|---------|
-| `C:\Users\alibi\...\Projects\CafeDND\cafe-dnd-web\` | Active dev project — all source code lives here |
+| `C:\Users\alibi\...\Projects\CafeDND\Tavern-Table\cafe-dnd-web\` | Active dev project — all source code lives here |
 | `C:\Users\alibi\...\Games\CafeDND\` | Planning: design docs, roadmap, wireframes, UI references |
 
 ---
 
-## Tech Stack — Research Version
+## Tech Stack
 
 | Layer | Technology |
 |-------|-----------|
@@ -32,8 +30,8 @@
 | Game host (DM's machine) | Node.js + Express + Socket.io (port 3001) — runs on DM's local machine or VPS |
 | Relay service | `tavern-relay/` — custom Node.js + ws WebSocket proxy for NAT traversal *(R4a)* |
 | Animation | GSAP 3.x (Peek camera transition) |
-| Dice physics | Rapier.js WASM *(R4b — not yet integrated)* |
-| Audio | Howler.js *(R5 — not yet integrated)* |
+| Dice physics | Rapier.js WASM *(integrated R4b; visible dice land at R5B)* |
+| Audio | Howler.js *(integrated R5 — no-op until audio files land)* |
 | Desktop wrapper | Tauri 2.0 (Rust) *(R8 — not yet integrated)* |
 | Auth / DB | Supabase *(R7 only — local stub active through R6)* |
 
@@ -214,12 +212,19 @@ All game state must remain JSON-serializable at all times.
 | R1 | 3D Room & Core Scene | ✅ Complete |
 | R2 | Peek Mechanic & Map System | ✅ Complete |
 | R3 | Multiplayer & Session Sync | ✅ Complete |
-| **R4a** | **Lobby & Networking Overhaul — P2P DM-as-host, relay service, join approval** | 🔨 **Next Up** |
-| R4b | Core Game Systems (dice physics, character sheets, initiative, combat) | ⬜ Not started |
-| R5 | DM & Player Interfaces (HUD, audio, asset wiring) | ⬜ Not started |
-| R6 | Website Launch & QA | ⬜ Not started |
-| R7 | Supabase + Closed Playtesting | ⬜ Not started |
+| R4a | Lobby & Networking Overhaul — P2P DM-as-host, relay service, join approval | ✅ Complete |
+| R4b | Core Game Systems (dice physics, character sheets, initiative, combat) | ✅ Complete |
+| R5 | DM & Player Interfaces (HUD, audio, asset wiring, DN-001/002/003) | ✅ Complete |
+| R5A | Seats, Cameras & Avatars | ✅ Complete |
+| **R5B** | **Physics Dice Experience — visible tumbling dice, server-authoritative result** | 🔨 **Next Up** |
+| R5C | Access Key & Test Distribution (blocked on DN-005 decision) | ⬜ Not started |
+| R5D | Comms & Dice QoL | ⬜ Not started |
+| R5E | DM Toolset | ⬜ Not started |
+| R6 | Website Launch & QA | ⏸ Postponed until R5E closes |
+| R7 | Supabase + Closed Playtesting (feedback gate = public-launch go/no-go, DN-006) | ⬜ Not started |
 | R8 | Tauri Desktop Wrapper | ⬜ Not started |
+
+> Binding task lists for R5B–R5E: `CafeD&D_TavernTable_PLANS/TavernTable_R5_Extension_Phases.md`.
 
 > For the visual roadmap, open `roadmap/index.html` in a browser.
 
@@ -229,11 +234,15 @@ All game state must remain JSON-serializable at all times.
 
 Tracked in [`DESIGN_NOTES.md`](./DESIGN_NOTES.md). All future design decisions go there using the `DN-NNN` format.
 
-| ID | Title | Roadmap Target |
-|----|-------|---------------|
-| DN-001 | Tavern Room Variant | R5 |
-| DN-002 | Day/Night Atmosphere Switch | R5 |
-| DN-003 | Dynamic Theme & Asset Library (GLB/GLTF) | R5 (wiring), R2 (scaffold) |
+| ID | Title | Status / Target |
+|----|-------|-----------------|
+| DN-001 | Tavern Room Variant | ✅ Built (R5) |
+| DN-002 | Day/Night Atmosphere Switch | ✅ Built (R5) |
+| DN-003 | Dynamic Theme & Asset Library (GLB/GLTF) | ✅ Wired (R5); Draco/KTX2 + real art → R5E |
+| DN-004 | Relay Is the Universal Connection Path | Decided — verify at R6 |
+| DN-005 | Mid-Session Join | ⚠️ OPEN — Bilal's call, blocks R5C |
+| DN-006 | Web Build Is the Product (Godot = contingency) | Decided 2026-08-18 |
+| DN-007 | Brand Architecture — CafeD&D ⊃ TavernTable | Decided 2026-08-18 |
 
 ---
 
@@ -484,11 +493,11 @@ Both directories are indexed:
 
 | Project | Status |
 |---------|--------|
-| `Projects/CafeDND` (dev code) | ✅ Indexed |
+| `Projects/CafeDND/Tavern-Table` (dev code) | ✅ Indexed |
 | `Games/CafeDND` (planning docs) | ✅ Indexed |
 
 Use `search_graph`, `trace_path`, `get_code_snippet`, and `get_architecture` before falling back to Grep/Read.
 
 ---
 
-*Last Updated: June 2026 · Research Version — R3 Complete, R4a (Lobby & Networking Overhaul) Starting*
+*Last Updated: 2026-08-18 · Web build = the product (DN-006) · R5A complete, R5B next*

@@ -1,4 +1,4 @@
-﻿# Tavern Table — Research Version: Phase R0 Kickoff Todo List
+﻿# TavernTable — Research Version: Phase R0 Kickoff Todo List
 
 **Track:** Research Version (Three.js + Vite + TypeScript + Socket.io)
 **Phase:** R0 — Architecture & Setup

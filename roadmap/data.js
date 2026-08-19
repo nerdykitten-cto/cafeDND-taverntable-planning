@@ -1,11 +1,11 @@
 /* ══════════════════════════════════════════════════════════════════
-   CafeDND / Tavern Table — Roadmap Data
-   Two-Track Strategy:
-     Track 1 — Research Version (Three.js + Vite + Socket.io) — CLOSED
+   CafeD&D · TavernTable — Roadmap Data
+   Strategy (2026-08-18 restructure):
+     THE PRODUCT — TavernTable web build (Three.js + Vite + Socket.io) — DN-006
        Primary delivery: hosted website (browser, no install)
        Later: Tauri desktop wrapper (R8, after website is stable)
        Auth/DB: local mock (R0–R6) → Supabase (R7, closed testing only)
-     Track 2 — Production Version (Godot 4.x) — PUBLIC (post-feedback gate)
+     CONTINGENCY — Godot rebuild (G0–G7), dormant; activates only on a blocking technical ceiling (DN-006)
 ══════════════════════════════════════════════════════════════════ */
 
 const RESEARCH_PHASES = [
